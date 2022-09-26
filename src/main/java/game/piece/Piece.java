@@ -42,12 +42,10 @@ public abstract class Piece {
     public abstract boolean move(int newX, int newY);
 
     protected void changePosition(int newX, int newY) {
-        Square square = board.getSquares()[newX][newY];
-
-        if (!square.isEmpty()) {
-            square.removePiece();
-        }
-        square.setPiece(this);
+        board.getSquares()[x][y].removePiece();
+        board.getSquares()[newX][newY].setPiece(this);
+        x = newX;
+        y = newY;
     }
 
     protected int getXDistance(int newX) {

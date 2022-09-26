@@ -10,6 +10,7 @@ public class Square {
 
     public Square (Color color) {
         this.color = color;
+        piece = null;
     }
 
     public Color getColor() {

@@ -16,20 +16,22 @@ public class Pawn extends Piece {
     public boolean move(int newX, int newY) {
         Square square = board.getSquares()[newX][newY];
 
-        if (newX == x && newY == y + 1 && square.isEmpty()) { // move 1 forward
+        if (getXDistance(newX) == 1 && y == newY && square.isEmpty()) { // move 1 forward
             changePosition(newX, newY);
             moved = true;
             return true;
         }
 
-        if (newX == x && newY == y + 2 && square.isEmpty() && board.getSquares()[newX][newY - 1].isEmpty()
+        if (getXDistance(newX) == 2 && y == newY && square.isEmpty()
+                && ((color == Color.BLACK && board.getSquares()[x + 1][y].isEmpty())
+                || ((color == Color.WHITE && board.getSquares()[x - 1][y].isEmpty())))
                 && !moved) { // move 2 forward
             changePosition(newX, newY);
             moved = true;
             return true;
         }
 
-        if (((newX == x + 1 && newY == y + 1) || (newX == x - 1 && newY == y + 1))
+        if (getXDistance(newX) == 1 && getYDistance(newY) == 1
                 && square.containsPieceOfOtherColor(color)) { // move diagonal
             changePosition(newX, newY);
             moved = true;
@@ -38,4 +40,6 @@ public class Pawn extends Piece {
 
         return false;
     }
+
+    //TODO: en pasant
 }
