@@ -6,20 +6,22 @@ import java.util.ArrayList;
 
 public class StraightHelper {
 
-    public static boolean move(Piece piece, int newX, int newY) {
-        Square square = piece.getBoard().getSquares()[newX][newY];
+    public static boolean moveCheck(Piece piece, int newX, int newY) {
+        if (piece instanceof Queen || piece instanceof Rook) {
+            Square square = piece.getBoard().getSquares()[newX][newY];
 
-        if ((square.isEmpty()) || (square.containsPieceOfOtherColor(piece.getColor()))) {
-            if ((((newX > piece.getX()) || (newX < piece.getX())) && newY == piece.getY())) {
-                return noPiecesVertically(piece, newY);
-            } else if (((newY > piece.getY()) || (newY < piece.getY())) && newX == piece.getX()) {
-                return noPiecesHorizontally(piece, newX);
+            if ((square.isEmpty()) || (square.containsPieceOfOtherColor(piece.getColor()))) {
+                if ((newX > piece.getX() || (newX < piece.getX())) && newY == piece.getY()) {
+                    return noPiecesVertically(piece, newX);
+                } else if ((newY > piece.getY() || newY < piece.getY()) && newX == piece.getX()) {
+                    return noPiecesHorizontally(piece, newY);
+                }
             }
         }
         return false;
     }
 
-    private static boolean noPiecesHorizontally(Piece piece, int newX) {
+    private static boolean noPiecesVertically(Piece piece, int newX) {
         int bigger;
         int smaller;
 
@@ -27,18 +29,20 @@ public class StraightHelper {
             bigger = newX;
             smaller = piece.getX() + 1;
         } else {
-            bigger = piece.getX() - 1;
-            smaller = newX;
+            bigger = piece.getX();
+            smaller = newX + 1;
         }
+
+        ArrayList<Square> column = new ArrayList<>();
+
         for (int i = smaller; i < bigger; i++) {
-            if (!piece.getBoard().getSquares()[piece.getY()][i].isEmpty()) {
-                return false;
-            }
+            column.add(piece.getBoard().getSquares()[i][piece.getY()]);
         }
-        return false;
+
+        return column.stream().allMatch(Square::isEmpty);
     }
 
-    private static boolean noPiecesVertically(Piece piece, int newY) {
+    private static boolean noPiecesHorizontally(Piece piece, int newY) {
         int bigger;
         int smaller;
 
@@ -46,22 +50,15 @@ public class StraightHelper {
             bigger = newY;
             smaller = piece.getY() + 1;
         } else {
-            bigger = piece.getY() - 1;
-            smaller = newY;
-        }
-
-        ArrayList<Square> column = new ArrayList<>();
-
-        for (int i = 0; i < bigger; i++) {
-            column.add(piece.getBoard().getSquares()[i][piece.getX()]);
+            bigger = piece.getY();
+            smaller = newY + 1;
         }
 
         for (int i = smaller; i < bigger; i++) {
-            if (!column.get(i).isEmpty()) {
+            if (!piece.getBoard().getSquares()[piece.getX()][i].isEmpty()) {
                 return false;
             }
         }
-
-        return false;
+        return true;
     }
 }

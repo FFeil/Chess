@@ -9,14 +9,13 @@ public abstract class Piece {
     protected Color color;
     protected int x;
     protected int y;
-    protected boolean active;
+
 
     public Piece(Board board, Color color, int x, int y) {
         this.color = color;
         this.x = x;
         this.y = y;
         this.board = board;
-        active = true;
     }
 
     public Board getBoard() {
@@ -33,10 +32,6 @@ public abstract class Piece {
 
     public int getY() {
         return y;
-    }
-
-    public boolean isActive() {
-        return active;
     }
 
     public abstract boolean move(int newX, int newY);

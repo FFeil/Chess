@@ -11,9 +11,7 @@ public class Queen extends Piece {
 
     @Override
     public boolean move(int newX, int newY) {
-        Square square = board.getSquares()[newX][newY];
-
-        if (StraightHelper.move(this, newX, newY) || DiagonalHelper.move(this, newX, newY)) {
+        if (StraightHelper.moveCheck(this, newX, newY) || DiagonalHelper.moveCheck(this, newX, newY)) {
             changePosition(newX, newY);
             return true;
         }

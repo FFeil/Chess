@@ -5,7 +5,7 @@ import game.Square;
 
 public class King extends Piece {
 
-    boolean moved;
+    private boolean moved;
 
     public King(Board board, Color color, int x, int y) {
         super(board, color, x, y);
@@ -15,9 +15,8 @@ public class King extends Piece {
     public boolean move(int newX, int newY) {
         Square square = board.getSquares()[newX][newY];
 
-        if (((getXDistance(newX) == 1) && (y == newY)) || (((getYDistance(newY) == 1)) && (x == newX))
-                || ((getXDistance(newX) == 1 && (getYDistance(newY) == 1)))
-                && square.isEmpty() ) {
+        if ((getXDistance(newX) + getYDistance(newY) == 1 || (getXDistance(newX) == 1 && getYDistance(newY) == 1 ))
+                && (square.containsPieceOfOtherColor(color) || square.isEmpty())) {
             changePosition(newX, newY);
             moved = true;
             return true;
