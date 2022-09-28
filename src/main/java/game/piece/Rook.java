@@ -1,7 +1,6 @@
 package game.piece;
 
 import game.Board;
-import game.Square;
 
 public class Rook extends Piece {
 
@@ -13,11 +12,16 @@ public class Rook extends Piece {
 
     @Override
     public boolean move(int newX, int newY) {
-        if (StraightHelper.moveCheck(this, newX, newY)) {
+        if (canMoveTo(newX, newY) && !board.kingHasXray(getX(), getY(), newX, newY, color)) {
             changePosition(newX, newY);
             moved = true;
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean canMoveTo(int newX, int newY) {
+        return StraightHelper.moveCheck(this, newX, newY);
     }
 }

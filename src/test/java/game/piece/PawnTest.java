@@ -21,7 +21,7 @@ public class PawnTest {
 
     @Test
     void capture() {
-        board.getSquares()[2][2].setPiece(new Queen(board, WHITE, 2, 2));
+        board.getSquares()[2][2].setPiece(new Pawn(board, WHITE, 2, 2));
 
         Assertions.assertTrue(board.getSquares()[1][1].getPiece().move(2, 2));
         Assertions.assertTrue(board.getSquares()[1][1].isEmpty());

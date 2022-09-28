@@ -9,11 +9,16 @@ public class Board {
 
     private final Square[][] squares;
     private boolean pawnMoved2Squares;
-    private boolean promotePawn;
+    private final boolean promotePawn;
+    private final int[] whiteKingCoord;
+    private final int[] blackKingCoord;
 
     public Board() {
         pawnMoved2Squares = false;
         promotePawn = false;
+        whiteKingCoord = new int[2];
+        blackKingCoord = new int[2];
+
         squares = new Square[8][8];
 
         initiateSquares();
@@ -30,6 +35,32 @@ public class Board {
 
     public void setPawnMoved2Squares(boolean pawnMoved2Squares) {
         this.pawnMoved2Squares = pawnMoved2Squares;
+    }
+
+    public boolean isPawnMoved2Squares() {
+        return pawnMoved2Squares;
+    }
+
+    public boolean isPromotePawn() {
+        return promotePawn;
+    }
+
+    public int[] getWhiteKingCoord() {
+        return whiteKingCoord;
+    }
+
+    public int[] getBlackKingCoord() {
+        return blackKingCoord;
+    }
+
+    public void setWhiteKingCoord(int x, int y) {
+        whiteKingCoord[0] = x;
+        whiteKingCoord[1] = y;
+    }
+
+    public void setBlackKingCoord(int x, int y) {
+        blackKingCoord[0] = x;
+        blackKingCoord[1] = y;
     }
 
     private void initiatePieces() {
@@ -70,7 +101,7 @@ public class Board {
 
     private void initiateSquares() {
         Color[] colors = {WHITE, BLACK};
-        int colorIndex = 0;
+        int colorIndex;
 
         for (int i = 0; i < 8; i ++) {
             if (i % 2 == 0) {
@@ -82,5 +113,50 @@ public class Board {
                 squares[i][j] = new Square(colors[colorIndex++ % 2]);
             }
         }
+    }
+
+    public boolean kingHasXray(int oldX, int oldY, int newX, int newY, Color currentPlayer) {
+        boolean result = false;
+
+        Piece movingPiece = squares[oldX][oldY].getPiece();
+        squares[oldX][oldY].removePiece();
+
+        Piece pieceToBeTaken = null;
+        if (!squares[newX][newY].isEmpty()) {
+            squares[newX][newY].removePiece();
+            pieceToBeTaken = squares[newX][newY].getPiece();
+        }
+
+        if (kingCanBeTaken(currentPlayer)) {
+            return true;
+        }
+
+        squares[oldX][oldY].setPiece(movingPiece);
+        squares[newX][newY].setPiece(pieceToBeTaken);
+
+        return result;
+    }
+
+    public boolean kingCanBeTaken(Color currentPlayer) {
+        for (Square[] squareArray : squares) {
+            for (Square square : squareArray) {
+                if (!square.isEmpty()) {
+                    if (currentPlayer == WHITE) {
+                        if (square.getPiece().getColor() == BLACK) {
+                            if (square.getPiece().canMoveTo(whiteKingCoord[0], whiteKingCoord[1])) {
+                                return true;
+                            }
+                        }
+                    } else {
+                        if (square.getPiece().getColor() == WHITE) {
+                            if (square.getPiece().canMoveTo(blackKingCoord[0], blackKingCoord[1])) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
 }

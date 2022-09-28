@@ -12,7 +12,7 @@ public class KingTest {
     private final Board board = new Board();
 
     @Test
-    public void move() {
+    void move() {
         board.getSquares()[4][4].setPiece(new King(board, WHITE, 4, 4));
 
         Assertions.assertTrue(board.getSquares()[4][4].getPiece() instanceof King);
@@ -27,7 +27,7 @@ public class KingTest {
     }
 
     @Test
-    public void dontMove() {
+    void dontMove() {
         board.getSquares()[4][4].setPiece(new King(board, WHITE, 4, 4));
 
         Assertions.assertTrue(board.getSquares()[4][4].getPiece() instanceof King);
@@ -37,7 +37,7 @@ public class KingTest {
     }
 
     @Test
-    public void capture() {
+    void capture() {
         board.getSquares()[4][4].setPiece(new King(board, WHITE, 4, 4));
         board.getSquares()[4][5].setPiece(new Pawn(board, BLACK, 4, 5));
 
@@ -49,7 +49,7 @@ public class KingTest {
     }
 
     @Test
-    public void moveToSameColorPiece() {
+    void moveToSameColorPiece() {
         board.getSquares()[4][4].setPiece(new King(board, WHITE, 4, 4));
         board.getSquares()[4][5].setPiece(new Pawn(board, WHITE, 4, 5));
 

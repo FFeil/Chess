@@ -1,7 +1,6 @@
 package game.piece;
 
 import game.Board;
-import game.Square;
 
 public abstract class Piece {
 
@@ -35,6 +34,8 @@ public abstract class Piece {
     }
 
     public abstract boolean move(int newX, int newY);
+
+    public abstract boolean canMoveTo(int newX, int newY);
 
     protected void changePosition(int newX, int newY) {
         board.getSquares()[x][y].removePiece();

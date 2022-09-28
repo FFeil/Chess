@@ -25,4 +25,8 @@ public class Game {
         nextPlayer = currentPlayer;
         currentPlayer = tmp;
     }
+
+    public void makeMove(int x, int y) {
+
+    }
 }

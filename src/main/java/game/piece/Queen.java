@@ -1,7 +1,6 @@
 package game.piece;
 
 import game.Board;
-import game.Square;
 
 public class Queen extends Piece {
 
@@ -11,10 +10,15 @@ public class Queen extends Piece {
 
     @Override
     public boolean move(int newX, int newY) {
-        if (StraightHelper.moveCheck(this, newX, newY) || DiagonalHelper.moveCheck(this, newX, newY)) {
+        if (canMoveTo(newX, newY) && !board.kingCanBeTaken(color)) {
             changePosition(newX, newY);
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean canMoveTo(int newX, int newY) {
+        return StraightHelper.moveCheck(this, newX, newY) || DiagonalHelper.moveCheck(this, newX, newY);
     }
 }

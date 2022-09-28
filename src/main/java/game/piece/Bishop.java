@@ -1,7 +1,6 @@
 package game.piece;
 
 import game.Board;
-import game.Square;
 
 public class Bishop extends Piece {
 
@@ -11,10 +10,15 @@ public class Bishop extends Piece {
 
     @Override
     public boolean move(int newX, int newY) {
-        if (DiagonalHelper.moveCheck(this, newX, newY)) {
+        if (canMoveTo(newX, newY) && !board.kingHasXray(getX(), getY(), newX, newY, color)) {
             changePosition(newX, newY);
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean canMoveTo(int newX, int newY) {
+        return DiagonalHelper.moveCheck(this, newX, newY);
     }
 }

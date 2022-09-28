@@ -11,7 +11,8 @@ import static game.piece.Color.WHITE;
 
 public class BoardTest {
 
-    private final Square[][] squares = new Board().getSquares();
+    private final Board board = new Board();
+    private final Square[][] squares = board.getSquares();
 
     @Test
     void initSquares() {
@@ -91,5 +92,31 @@ public class BoardTest {
 
         Assertions.assertTrue(squares[7][4].getPiece() instanceof King);
         Assertions.assertEquals(WHITE, squares[7][4].getPiece().getColor());
+    }
+
+    @Test
+    void kingHasXray() {
+        for (Square[] squareArray : squares) {
+            for (Square square : squareArray) {
+                square.setPiece(null);
+            }
+        }
+        board.setWhiteKingCoord(0, 0);
+
+        squares[0][0].setPiece(new King(board, WHITE, 0, 0));
+        squares[1][0].setPiece(new Queen(board, WHITE, 1, 0));
+        squares[2][0].setPiece(new Rook(board, BLACK, 2, 0));
+        Assertions.assertTrue(board.kingHasXray(1, 0, 1, 1, WHITE));
+
+        squares[1][1].setPiece(new Queen(board, WHITE, 1, 1));
+        squares[2][2].setPiece(new Bishop(board, BLACK, 2, 2));
+
+        Assertions.assertTrue(board.kingHasXray(1, 1, 0, 1, WHITE));
+    }
+
+    @Test
+    void kingHasNoXray() {
+        Assertions.assertFalse(board.kingHasXray(1, 0, 2, 0,  WHITE));
+        Assertions.assertFalse(board.kingHasXray(0, 1, 2, 2,  WHITE));
     }
 }
