@@ -7,10 +7,10 @@ import java.util.ArrayList;
 public class StraightHelper {
 
     public static boolean moveCheck(Piece piece, int newX, int newY) {
-        if (piece instanceof Queen || piece instanceof Rook) {
+        if (piece instanceof Queen || piece instanceof Rook || piece instanceof King) {
             Square square = piece.getBoard().getSquares()[newX][newY];
 
-            if ((square.isEmpty()) || (square.containsPieceOfOtherColor(piece.getColor()))) {
+            if (square.isEmpty() || square.containsPieceOfOtherColor(piece.getColor()) || piece instanceof King) {
                 if ((newX > piece.getX() || (newX < piece.getX())) && newY == piece.getY()) {
                     return noPiecesVertically(piece, newX);
                 } else if ((newY > piece.getY() || newY < piece.getY()) && newX == piece.getX()) {
@@ -18,6 +18,7 @@ public class StraightHelper {
                 }
             }
         }
+
         return false;
     }
 
@@ -58,7 +59,12 @@ public class StraightHelper {
             if (!piece.getBoard().getSquares()[piece.getX()][i].isEmpty()) {
                 return false;
             }
+            if (piece instanceof King // castling
+                    && piece.getBoard().pieceCanBeTakenAt(piece.getX(), i, piece.getColor())) {
+                return false;
+            }
         }
+
         return true;
     }
 }

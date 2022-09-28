@@ -8,6 +8,11 @@ public class Rook extends Piece {
 
     public Rook(Board board, Color color, int x, int y) {
         super(board, color, x, y);
+        moved = false;
+    }
+
+    public boolean hasMoved() {
+        return moved;
     }
 
     @Override
@@ -15,8 +20,10 @@ public class Rook extends Piece {
         if (canMoveTo(newX, newY) && !board.kingHasXray(getX(), getY(), newX, newY, color)) {
             changePosition(newX, newY);
             moved = true;
+
             return true;
         }
+
         return false;
     }
 

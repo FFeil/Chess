@@ -12,7 +12,7 @@ public class Pawn extends Piece {
 
     public Pawn(Board board, Color color, int x, int y) {
         super(board, color, x, y);
-        row = 1;
+        row = 2;
         moved2Squares = false;
     }
 
@@ -23,20 +23,26 @@ public class Pawn extends Piece {
     @Override
     public boolean move(int newX, int newY) {
         if (canMoveTo(newX, newY) && !board.kingHasXray(getX(), getY(), newX, newY, color)) {
-            changePosition(newX, newY);
-
-       //  if (getXDistance(newX) == 1 && getYDistance(newY) == 1
-       //          && board.getSquares()[newX - 1][newY].containsPieceOfOtherColor(color))) {
-       //      board.getSquares()[newX - 1][newY].removePiece();
-       //  }
-       //
-            if (canMove2Forward(newX, newY)) {
-                row+=2;
+            if (getXDistance(newX) == 2) {
+                row = 4;
                 moved2Squares = true;
             } else {
                 row++;
                 moved2Squares = false;
             }
+
+            // en pasant move
+            if (getXDistance(newX) == 1 && getYDistance(newY) == 1 && board.getSquares()[newX][newY].isEmpty()) {
+                int backwardsStep = 1;
+
+                if (color == WHITE) {
+                    backwardsStep *= -1;
+                }
+
+                board.getSquares()[newX - backwardsStep][newY].removePiece();
+            }
+
+            changePosition(newX, newY);
 
             return true;
         }
@@ -59,7 +65,7 @@ public class Pawn extends Piece {
         return getXDistance(newX) == 2 && y == newY && board.getSquares()[newX][newY].isEmpty()
                 && ((color == BLACK && board.getSquares()[x + 1][y].isEmpty())
                 || ((color == Color.WHITE && board.getSquares()[x - 1][y].isEmpty())))
-                && row == 1;
+                && row == 2;
     }
 
     private boolean canMoveDiagonal(int newX, int newY) {
@@ -68,20 +74,20 @@ public class Pawn extends Piece {
     }
 
     private boolean canDoEnPasant(int newX, int newY) {
-        if (!board.getSquares()[newX - 1][newY].isEmpty() && row == 5
-                && board.getSquares()[newX - 1][newY].containsPieceOfOtherColor(color)) {
-            if ((board.getSquares()[newX + 1][newY].getPiece() instanceof Pawn && color == BLACK)
-                || (board.getSquares()[newX - 1][newY].getPiece() instanceof Pawn && color == WHITE)){
-                if (((Pawn) board.getSquares()[newX - 1][newY].getPiece()).hasMoved2Squares()) {
-                    board.getSquares()[newX - 1][newY].removePiece();
-                    return true;
+        int backwardsStep = 1;
+        if (color == WHITE) {
+            backwardsStep*=-1;
+        }
+
+        if (board.getSquares()[newX][newY].isEmpty() && row == 5
+                && getXDistance(newX) == 1 && getYDistance(newY) == 1) {
+            if (board.getSquares()[newX - backwardsStep][newY].containsPieceOfOtherColor(color)) {
+                if (board.getSquares()[newX - backwardsStep][newY].getPiece() instanceof Pawn) {
+                    return ((Pawn) board.getSquares()[newX - backwardsStep][newY].getPiece()).hasMoved2Squares();
                 }
             }
         }
 
         return false;
     }
-
-
-    //TODO: en pasant
 }

@@ -101,5 +101,43 @@ public class PawnTest {
         Assertions.assertFalse(board.getSquares()[1][1].getPiece().move(1, 1));
         Assertions.assertTrue(board.getSquares()[1][1].getPiece() instanceof Pawn);
     }
+
+    @Test
+    public void enPasant() {
+        // White
+        Assertions.assertTrue(board.getSquares()[6][3].getPiece().move(4, 3));
+        Assertions.assertTrue(board.getSquares()[4][3].getPiece().move(3, 3));
+        Assertions.assertTrue(board.getSquares()[1][2].getPiece().move(3, 2));
+
+        Assertions.assertTrue(board.getSquares()[3][3].getPiece().move(2, 2));
+        Assertions.assertTrue(board.getSquares()[3][3].isEmpty());
+        Assertions.assertTrue(board.getSquares()[2][2].getPiece() instanceof Pawn);
+        Assertions.assertEquals(WHITE, board.getSquares()[2][2].getPiece().getColor());
+        Assertions.assertTrue(board.getSquares()[3][2].isEmpty());
+
+        // Black
+        Assertions.assertTrue(board.getSquares()[1][3].getPiece().move(3, 3));
+        Assertions.assertTrue(board.getSquares()[3][3].getPiece().move(4, 3));
+        Assertions.assertTrue(board.getSquares()[6][2].getPiece().move(4, 2));
+
+        Assertions.assertTrue(board.getSquares()[4][3].getPiece().move(5, 2));
+        Assertions.assertTrue(board.getSquares()[4][3].isEmpty());
+        Assertions.assertTrue(board.getSquares()[5][2].getPiece() instanceof Pawn);
+        Assertions.assertEquals(BLACK, board.getSquares()[5][2].getPiece().getColor());
+        Assertions.assertTrue(board.getSquares()[4][2].isEmpty());
+    }
+
+    @Test
+    public void enPasantFail() {
+        Assertions.assertTrue(board.getSquares()[6][3].getPiece().move(4, 3));
+        Assertions.assertTrue(board.getSquares()[4][3].getPiece().move(3, 3));
+        Assertions.assertTrue(board.getSquares()[1][2].getPiece().move(2, 2));
+        Assertions.assertTrue(board.getSquares()[2][2].getPiece().move(3, 2));
+
+        Assertions.assertFalse(board.getSquares()[3][3].getPiece().move(2, 2));
+        Assertions.assertTrue(board.getSquares()[2][2].isEmpty());
+        Assertions.assertEquals(WHITE, board.getSquares()[3][3].getPiece().getColor());
+        Assertions.assertEquals(BLACK, board.getSquares()[3][2].getPiece().getColor());
+    }
 }
 

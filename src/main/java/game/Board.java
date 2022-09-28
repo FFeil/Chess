@@ -8,13 +8,11 @@ import static game.piece.Color.WHITE;
 public class Board {
 
     private final Square[][] squares;
-    private boolean pawnMoved2Squares;
     private final boolean promotePawn;
     private final int[] whiteKingCoord;
     private final int[] blackKingCoord;
 
     public Board() {
-        pawnMoved2Squares = false;
         promotePawn = false;
         whiteKingCoord = new int[2];
         blackKingCoord = new int[2];
@@ -29,38 +27,26 @@ public class Board {
         return squares;
     }
 
-    public boolean hasPawnMoved2Squares() {
-        return pawnMoved2Squares;
-    }
-
-    public void setPawnMoved2Squares(boolean pawnMoved2Squares) {
-        this.pawnMoved2Squares = pawnMoved2Squares;
-    }
-
-    public boolean isPawnMoved2Squares() {
-        return pawnMoved2Squares;
-    }
-
     public boolean isPromotePawn() {
         return promotePawn;
     }
 
-    public int[] getWhiteKingCoord() {
-        return whiteKingCoord;
+    public int[] getKingCoord(Color color) {
+        if (color == WHITE) {
+            return whiteKingCoord;
+        } else {
+            return blackKingCoord;
+        }
     }
 
-    public int[] getBlackKingCoord() {
-        return blackKingCoord;
-    }
-
-    public void setWhiteKingCoord(int x, int y) {
-        whiteKingCoord[0] = x;
-        whiteKingCoord[1] = y;
-    }
-
-    public void setBlackKingCoord(int x, int y) {
-        blackKingCoord[0] = x;
-        blackKingCoord[1] = y;
+    public void setKingCoord(Color color, int x, int y) {
+        if (color == WHITE) {
+            whiteKingCoord[0] = x;
+            whiteKingCoord[1] = y;
+        } else {
+            blackKingCoord[0] = x;
+            blackKingCoord[1] = y;
+        }
     }
 
     private void initiatePieces() {
@@ -127,7 +113,7 @@ public class Board {
             pieceToBeTaken = squares[newX][newY].getPiece();
         }
 
-        if (kingCanBeTaken(currentPlayer)) {
+        if (pieceCanBeTakenAt(getKingCoord(currentPlayer)[0], getKingCoord(currentPlayer)[1], currentPlayer)) {
             return true;
         }
 
@@ -137,19 +123,19 @@ public class Board {
         return result;
     }
 
-    public boolean kingCanBeTaken(Color currentPlayer) {
+    public boolean pieceCanBeTakenAt(int x, int y, Color currentPlayer) {
         for (Square[] squareArray : squares) {
             for (Square square : squareArray) {
                 if (!square.isEmpty()) {
                     if (currentPlayer == WHITE) {
                         if (square.getPiece().getColor() == BLACK) {
-                            if (square.getPiece().canMoveTo(whiteKingCoord[0], whiteKingCoord[1])) {
+                            if (square.getPiece().canMoveTo(x, y)) {
                                 return true;
                             }
                         }
                     } else {
                         if (square.getPiece().getColor() == WHITE) {
-                            if (square.getPiece().canMoveTo(blackKingCoord[0], blackKingCoord[1])) {
+                            if (square.getPiece().canMoveTo(x, y)) {
                                 return true;
                             }
                         }

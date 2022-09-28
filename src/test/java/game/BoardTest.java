@@ -14,6 +14,14 @@ public class BoardTest {
     private final Board board = new Board();
     private final Square[][] squares = board.getSquares();
 
+    private void clearBoard() {
+        for (Square[] squareArray : squares) {
+            for (Square square : squareArray) {
+                square.setPiece(null);
+            }
+        }
+    }
+
     @Test
     void initSquares() {
         for (int i = 2; i < 5; i++) {
@@ -96,12 +104,9 @@ public class BoardTest {
 
     @Test
     void kingHasXray() {
-        for (Square[] squareArray : squares) {
-            for (Square square : squareArray) {
-                square.setPiece(null);
-            }
-        }
-        board.setWhiteKingCoord(0, 0);
+        clearBoard();
+
+        board.setKingCoord(WHITE, 0, 0);
 
         squares[0][0].setPiece(new King(board, WHITE, 0, 0));
         squares[1][0].setPiece(new Queen(board, WHITE, 1, 0));
@@ -118,5 +123,49 @@ public class BoardTest {
     void kingHasNoXray() {
         Assertions.assertFalse(board.kingHasXray(1, 0, 2, 0,  WHITE));
         Assertions.assertFalse(board.kingHasXray(0, 1, 2, 2,  WHITE));
+    }
+
+    @Test
+    void castling() {
+        clearBoard();
+        squares[0][4].setPiece(new King(board, BLACK, 0, 4));
+        squares[7][4].setPiece(new King(board, WHITE, 7, 4));
+        squares[0][0].setPiece(new Rook(board, BLACK, 0, 0));
+        squares[7][7].setPiece(new Rook(board, WHITE, 7, 7));
+
+        Assertions.assertTrue(squares[0][4].getPiece().move(0, 0));
+        Assertions.assertTrue(squares[0][2].getPiece() instanceof King);
+        Assertions.assertTrue(squares[0][3].getPiece() instanceof Rook);
+
+        Assertions.assertTrue(squares[7][4].getPiece().move(7, 7));
+        Assertions.assertTrue(squares[7][6].getPiece() instanceof King);
+        Assertions.assertTrue(squares[7][5].getPiece() instanceof Rook);
+    }
+
+    @Test
+    void blockingCastleWithVision() {
+        clearBoard();
+        squares[7][4].setPiece(new King(board, WHITE, 7, 4));
+        squares[7][7].setPiece(new Rook(board, WHITE, 7, 7));
+        squares[5][5].setPiece(new Queen(board, BLACK, 5, 5));
+
+        Assertions.assertFalse(squares[7][4].getPiece().move(7, 7));
+        Assertions.assertTrue(squares[7][4].getPiece() instanceof King);
+        Assertions.assertTrue(squares[7][7].getPiece() instanceof Rook);
+        Assertions.assertTrue(squares[7][6].isEmpty());
+        Assertions.assertTrue(squares[7][5].isEmpty());
+    }
+
+    @Test
+    void blockingCastleWithPiece() {
+        clearBoard();
+        squares[7][4].setPiece(new King(board, WHITE, 7, 4));
+        squares[7][7].setPiece(new Rook(board, WHITE, 7, 7));
+        squares[7][5].setPiece(new Queen(board, WHITE, 7, 5));
+
+        Assertions.assertFalse(squares[7][4].getPiece().move(7, 7));
+        Assertions.assertTrue(squares[7][4].getPiece() instanceof King);
+        Assertions.assertTrue(squares[7][7].getPiece() instanceof Rook);
+        Assertions.assertTrue(squares[7][5].getPiece() instanceof Queen);
     }
 }
