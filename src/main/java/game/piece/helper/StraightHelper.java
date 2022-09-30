@@ -1,8 +1,13 @@
-package game.piece;
+package game.piece.helper;
 
-import game.Square;
+import game.board.Square;
+import game.piece.King;
+import game.piece.Piece;
+import game.piece.Queen;
+import game.piece.Rook;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class StraightHelper {
 
@@ -66,5 +71,21 @@ public class StraightHelper {
         }
 
         return true;
+    }
+
+    public static boolean canMoveAnywhere(Piece piece) {
+        for (int i = 0; i < 8; i++) {
+            if (piece.canMoveTo(i, piece.getY())) {
+                return true;
+            }
+        }
+
+        for (int i = 0; i < 8; i++) {
+            if (piece.canMoveTo(piece.getX(), i)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

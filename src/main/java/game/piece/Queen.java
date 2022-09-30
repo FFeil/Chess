@@ -1,6 +1,8 @@
 package game.piece;
 
-import game.Board;
+import game.board.Board;
+import game.piece.helper.DiagonalHelper;
+import game.piece.helper.StraightHelper;
 
 public class Queen extends Piece {
 
@@ -20,5 +22,10 @@ public class Queen extends Piece {
     @Override
     public boolean canMoveTo(int newX, int newY) {
         return StraightHelper.moveCheck(this, newX, newY) || DiagonalHelper.moveCheck(this, newX, newY);
+    }
+
+    @Override
+    public boolean canMoveAnywhere() {
+        return StraightHelper.canMoveAnywhere(this) || DiagonalHelper.canMoveAnywhere(this);
     }
 }

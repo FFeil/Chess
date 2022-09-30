@@ -1,6 +1,7 @@
 package game.piece;
 
-import game.Board;
+import game.board.Board;
+import game.piece.helper.DiagonalHelper;
 
 public class Bishop extends Piece {
 
@@ -20,5 +21,10 @@ public class Bishop extends Piece {
     @Override
     public boolean canMoveTo(int newX, int newY) {
         return DiagonalHelper.moveCheck(this, newX, newY);
+    }
+
+    @Override
+    public boolean canMoveAnywhere() {
+        return DiagonalHelper.canMoveAnywhere(this);
     }
 }

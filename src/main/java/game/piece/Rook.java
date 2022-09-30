@@ -1,6 +1,7 @@
 package game.piece;
 
-import game.Board;
+import game.board.Board;
+import game.piece.helper.StraightHelper;
 
 public class Rook extends Piece {
 
@@ -30,5 +31,10 @@ public class Rook extends Piece {
     @Override
     public boolean canMoveTo(int newX, int newY) {
         return StraightHelper.moveCheck(this, newX, newY);
+    }
+
+    @Override
+    public boolean canMoveAnywhere() {
+        return StraightHelper.canMoveAnywhere(this);
     }
 }

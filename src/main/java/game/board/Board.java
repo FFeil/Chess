@@ -1,6 +1,10 @@
-package game;
+package game.board;
 
 import game.piece.*;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import static game.piece.Color.BLACK;
 import static game.piece.Color.WHITE;
@@ -8,16 +12,28 @@ import static game.piece.Color.WHITE;
 public class Board {
 
     private final Square[][] squares;
-    private final boolean promotePawn;
+    private final Set<Piece> whitePieces;
+    private final Set<Piece> blackPieces;
+    private boolean promotePawn;
     private final int[] whiteKingCoord;
     private final int[] blackKingCoord;
+    private Integer[] oldRookCoord;
+    private Integer[] newRookCoord;
+    private int moveCount; // 50 move rule
+    //private int repetitionCount;
 
     public Board() {
         promotePawn = false;
         whiteKingCoord = new int[2];
         blackKingCoord = new int[2];
+        oldRookCoord = null;
+        newRookCoord = null;
+        moveCount = 0;
+        //repetitionCount = 0;
 
         squares = new Square[8][8];
+        whitePieces = new HashSet<>();
+        blackPieces = new HashSet<>();
 
         initiateSquares();
         initiatePieces();
@@ -29,6 +45,34 @@ public class Board {
 
     public boolean isPromotePawn() {
         return promotePawn;
+    }
+
+    public Set<Piece> getPieceSet(Color color) {
+        if (color == WHITE) {
+            return whitePieces;
+        } else {
+            return blackPieces;
+        }
+    }
+
+    public void addPiece(Color color, Piece piece) {
+        if (color == WHITE) {
+            whitePieces.add(piece);
+        } else {
+            blackPieces.add(piece);
+        }
+    }
+
+    public void removePiece(Color color, Piece piece) {
+        if (color == WHITE) {
+            whitePieces.remove(piece);
+        } else {
+            blackPieces.remove(piece);
+        }
+    }
+
+    public void setPromotePawn(boolean promotePawn) {
+        this.promotePawn = promotePawn;
     }
 
     public int[] getKingCoord(Color color) {
@@ -48,6 +92,53 @@ public class Board {
             blackKingCoord[1] = y;
         }
     }
+
+    public Integer[] getOldRookCoord() {
+        Integer[] oldRookCoord = this.oldRookCoord;
+        this.oldRookCoord = null;
+
+        return oldRookCoord;
+    }
+
+    public Integer[] getNewRookCoord() {
+        Integer[] newRookCoord = this.newRookCoord;
+        this.newRookCoord = null;
+
+        return newRookCoord;
+    }
+
+    public void setRookCoord(int oldX, int oldY, int newX, int newY) {
+        oldRookCoord = new Integer[] {oldX, oldY};
+        newRookCoord = new Integer[] {newX, newY};
+    }
+
+    public int getMoveCount() {
+        return moveCount;
+    }
+
+    public void incrMoveCount() {
+        moveCount++;
+    }
+
+    public void decrMoveCount() {
+        moveCount--;
+    }
+
+    public void resetMoveCount() {
+        moveCount = 0;
+    }
+
+// public int getRepetitionCount() {
+//     return repetitionCount;
+// }
+
+// public void incrRepetitionCount() {
+//     repetitionCount++;
+// }
+
+// public void resetRepetitionCount() {
+//     repetitionCount = 0;
+// }
 
     private void initiatePieces() {
         // Pawns
@@ -83,6 +174,18 @@ public class Board {
         // Kings
         squares[0][4].setPiece(new King(this, BLACK, 0, 4));
         squares[7][4].setPiece(new King(this, WHITE, 7, 4));
+        whiteKingCoord[0] = 7;
+        whiteKingCoord[1] = 4;
+        blackKingCoord[0] = 0;
+        blackKingCoord[1] = 4;
+
+        for (int i = 0; i < 2; i++) {
+            Arrays.stream(squares[i]).forEach(square -> blackPieces.add(square.getPiece()));
+        }
+
+        for (int i = 6; i < 8; i++) {
+            Arrays.stream(squares[i]).forEach(square -> whitePieces.add(square.getPiece()));
+        }
     }
 
     private void initiateSquares() {
@@ -114,7 +217,7 @@ public class Board {
         }
 
         if (pieceCanBeTakenAt(getKingCoord(currentPlayer)[0], getKingCoord(currentPlayer)[1], currentPlayer)) {
-            return true;
+            result = true;
         }
 
         squares[oldX][oldY].setPiece(movingPiece);
@@ -124,25 +227,10 @@ public class Board {
     }
 
     public boolean pieceCanBeTakenAt(int x, int y, Color currentPlayer) {
-        for (Square[] squareArray : squares) {
-            for (Square square : squareArray) {
-                if (!square.isEmpty()) {
-                    if (currentPlayer == WHITE) {
-                        if (square.getPiece().getColor() == BLACK) {
-                            if (square.getPiece().canMoveTo(x, y)) {
-                                return true;
-                            }
-                        }
-                    } else {
-                        if (square.getPiece().getColor() == WHITE) {
-                            if (square.getPiece().canMoveTo(x, y)) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
+        if (currentPlayer == WHITE) {
+            return blackPieces.stream().anyMatch(piece -> piece.canMoveTo(x, y) && !(piece instanceof King));
+        } else {
+            return whitePieces.stream().anyMatch(piece -> piece.canMoveTo(x, y) && !(piece instanceof King));
         }
-        return false;
     }
 }

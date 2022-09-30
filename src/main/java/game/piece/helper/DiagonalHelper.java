@@ -1,6 +1,9 @@
-package game.piece;
+package game.piece.helper;
 
-import game.Square;
+import game.board.Square;
+import game.piece.Bishop;
+import game.piece.Piece;
+import game.piece.Queen;
 
 public class DiagonalHelper {
 
@@ -41,5 +44,22 @@ public class DiagonalHelper {
         }
 
         return true;
+    }
+
+    public static boolean canMoveAnywhere(Piece piece) {
+        for (int i = 0; i < 8; i++) {
+            if (piece.canMoveTo(i, i)) {
+                return true;
+            }
+        }
+
+        int j = 0;
+        for (int i = 7; i > 0; i--) {
+            if (piece.canMoveTo(i, j)) {
+                return true;
+            }
+            j++;
+        }
+        return false;
     }
 }

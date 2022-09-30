@@ -1,6 +1,7 @@
 package game.piece;
 
-import game.Board;
+import game.board.Board;
+import game.board.Square;
 
 public abstract class Piece {
 
@@ -37,18 +38,29 @@ public abstract class Piece {
 
     public abstract boolean canMoveTo(int newX, int newY);
 
+    public abstract boolean canMoveAnywhere();
+
     protected void changePosition(int newX, int newY) {
-        board.getSquares()[x][y].removePiece();
-        board.getSquares()[newX][newY].setPiece(this);
+        board.incrMoveCount();
+        Square[][] squares = board.getSquares();
+
+        if (!squares[newX][newY].isEmpty()) {
+            board.removePiece(squares[newX][newY].getPiece().color, squares[newX][newY].getPiece());
+            board.resetMoveCount();
+        }
+
+        squares[x][y].removePiece();
+        squares[newX][newY].setPiece(this);
         x = newX;
         y = newY;
+
     }
 
-    protected int getXDistance(int newX) {
+    public int getXDistance(int newX) {
         return Math.abs(x - newX);
     }
 
-    protected int getYDistance(int newY) {
+    public int getYDistance(int newY) {
         return Math.abs(y - newY);
     }
 }

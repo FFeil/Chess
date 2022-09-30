@@ -1,6 +1,7 @@
 package game.piece;
 
-import game.Board;
+import game.board.Board;
+import game.piece.helper.CanMoveAnywhereHelper;
 
 import static game.piece.Color.BLACK;
 import static game.piece.Color.WHITE;
@@ -30,6 +31,9 @@ public class Pawn extends Piece {
                 row++;
                 moved2Squares = false;
             }
+            if (row == 8) {
+                board.setPromotePawn(true);
+            }
 
             // en pasant move
             if (getXDistance(newX) == 1 && getYDistance(newY) == 1 && board.getSquares()[newX][newY].isEmpty()) {
@@ -43,6 +47,7 @@ public class Pawn extends Piece {
             }
 
             changePosition(newX, newY);
+            board.resetMoveCount();
 
             return true;
         }
@@ -54,6 +59,11 @@ public class Pawn extends Piece {
     public boolean canMoveTo(int newX, int newY) {
         return canMove1Forward(newX, newY) || canMove2Forward(newX, newY)
                 || canMoveDiagonal(newX, newY) ||canDoEnPasant(newX, newY);
+    }
+
+    @Override
+    public boolean canMoveAnywhere() {
+        return CanMoveAnywhereHelper.canMoveAnywhere(this, -1);
     }
 
     private boolean canMove1Forward(int newX, int newY) {
