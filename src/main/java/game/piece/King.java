@@ -94,4 +94,9 @@ public class King extends Piece {
     public boolean canMoveAnywhere() {
         return CanMoveAnywhereHelper.canMoveAnywhere(this, -1);
     }
+
+    @Override
+    public String getImagePath() {
+        return "src/main/resources/picture/" + color.toString().toLowerCase() + "_" + "king.png";
+    }
 }

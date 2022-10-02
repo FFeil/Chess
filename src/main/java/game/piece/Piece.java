@@ -40,6 +40,8 @@ public abstract class Piece {
 
     public abstract boolean canMoveAnywhere();
 
+    public abstract String getImagePath();
+
     protected void changePosition(int newX, int newY) {
         board.incrMoveCount();
         Square[][] squares = board.getSquares();

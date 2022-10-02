@@ -27,4 +27,9 @@ public class Bishop extends Piece {
     public boolean canMoveAnywhere() {
         return DiagonalHelper.canMoveAnywhere(this);
     }
+
+    @Override
+    public String getImagePath() {
+        return "src/main/resources/picture/" + color.toString().toLowerCase() + "_" + "bishop.png";
+    }
 }

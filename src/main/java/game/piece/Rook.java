@@ -37,4 +37,9 @@ public class Rook extends Piece {
     public boolean canMoveAnywhere() {
         return StraightHelper.canMoveAnywhere(this);
     }
+
+    @Override
+    public String getImagePath() {
+        return "src/main/resources/picture/" + color.toString().toLowerCase() + "_" + "rook.png";
+    }
 }

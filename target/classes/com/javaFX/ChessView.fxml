@@ -1,787 +1,337 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="chessPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="628.0" prefWidth="728.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javaFX.ChessController">
    <children>
-      <AnchorPane layoutY="-6.0" prefHeight="394.0" prefWidth="576.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="-6.0">
+      <Button fx:id="resetButton" layoutX="631.0" layoutY="286.0" mnemonicParsing="false" onAction="#onResetButtonPressed" prefHeight="46.0" prefWidth="70.0" text="Reset" />
+      <AnchorPane layoutY="2.0" onMouseDragged="#onMouseDragged" onMouseReleased="#onMouseReleased" prefHeight="610.0" prefWidth="611.0">
          <children>
-            <Group layoutX="14.0" layoutY="84.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7a7a7c" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../picture/black_pawn.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="14.0" layoutY="14.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../picture/black_rook.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="14.0" layoutY="154.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="14.0" layoutY="224.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7a7a7c" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="14.0" layoutY="294.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="14.0" layoutY="364.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7a7a7c" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="14.0" layoutY="434.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../picture/white_pawn.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="14.0" layoutY="504.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7a7a7c" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../picture/white_rook.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="84.0" layoutY="14.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7a7a7c" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../picture/black_knight.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="84.0" layoutY="84.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../picture/black_pawn.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="84.0" layoutY="154.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7a7a7c" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="84.0" layoutY="224.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="84.0" layoutY="294.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7a7a7c" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="84.0" layoutY="364.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="84.0" layoutY="434.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7a7a7c" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../picture/white_pawn.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="84.0" layoutY="504.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../picture/white_knight.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="154.0" layoutY="84.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7a7a7c" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../picture/black_pawn.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="154.0" layoutY="14.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../picture/black_bishop.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="154.0" layoutY="154.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="154.0" layoutY="224.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7a7a7c" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="154.0" layoutY="294.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="154.0" layoutY="364.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7a7a7c" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="154.0" layoutY="434.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../picture/white_pawn.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="154.0" layoutY="504.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7a7a7c" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../picture/white_bishop.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="224.0" layoutY="14.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7a7a7c" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../picture/black_queen.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="224.0" layoutY="84.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../picture/black_pawn.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="224.0" layoutY="154.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7a7a7c" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="224.0" layoutY="224.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="224.0" layoutY="294.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7a7a7c" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="224.0" layoutY="364.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="224.0" layoutY="434.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7a7a7c" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../picture/white_pawn.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="224.0" layoutY="504.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../picture/white_queen.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="294.0" layoutY="84.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7a7a7c" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../picture/black_pawn.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="294.0" layoutY="14.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../picture/black_king.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="294.0" layoutY="154.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="294.0" layoutY="224.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7a7a7c" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="294.0" layoutY="294.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="294.0" layoutY="364.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7a7a7c" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="294.0" layoutY="434.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../picture/white_pawn.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="294.0" layoutY="504.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7a7a7c" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../picture/white_king.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="364.0" layoutY="14.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7a7a7c" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../picture/black_bishop.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="364.0" layoutY="84.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../picture/black_pawn.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="364.0" layoutY="154.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7a7a7c" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="364.0" layoutY="224.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="364.0" layoutY="294.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7a7a7c" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="364.0" layoutY="364.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="364.0" layoutY="434.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7a7a7c" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../picture/white_pawn.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="364.0" layoutY="504.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../picture/white_bishop.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="434.0" layoutY="84.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7a7a7c" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../picture/black_pawn.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="434.0" layoutY="14.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../picture/black_knight.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="434.0" layoutY="154.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="434.0" layoutY="224.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7a7a7c" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="434.0" layoutY="294.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="434.0" layoutY="364.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7a7a7c" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="434.0" layoutY="434.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../picture/white_pawn.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="434.0" layoutY="504.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7a7a7c" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../picture/white_knight.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="504.0" layoutY="14.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7a7a7c" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../picture/black_rook.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="504.0" layoutY="84.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../picture/black_pawn.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="504.0" layoutY="154.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7a7a7c" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="504.0" layoutY="224.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="504.0" layoutY="294.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7a7a7c" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="504.0" layoutY="364.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="504.0" layoutY="434.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7a7a7c" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../picture/white_pawn.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
-            <Group layoutX="504.0" layoutY="504.0">
-               <children>
-                  <Pane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" />
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../picture/white_rook.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Group>
+            <Pane fx:id="pane" layoutX="14.0" layoutY="14.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane1" layoutX="89.0" layoutY="14.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onMouseDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: grey;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane2" layoutX="164.0" layoutY="14.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane3" layoutX="239.0" layoutY="14.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: grey;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane4" layoutX="314.0" layoutY="14.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane5" layoutX="389.0" layoutY="14.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: grey;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane6" layoutX="464.0" layoutY="14.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane7" layoutX="539.0" layoutY="14.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: grey;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane8" layoutX="14.0" layoutY="89.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: grey;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane9" layoutX="89.0" layoutY="89.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane10" layoutX="164.0" layoutY="89.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: grey;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane11" layoutX="239.0" layoutY="89.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane12" layoutX="314.0" layoutY="89.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: grey;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane13" layoutX="389.0" layoutY="89.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane14" layoutX="464.0" layoutY="89.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: grey;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane15" layoutX="539.0" layoutY="89.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane16" layoutX="14.0" layoutY="164.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane17" layoutX="89.0" layoutY="164.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: grey;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane18" layoutX="164.0" layoutY="164.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane19" layoutX="239.0" layoutY="164.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: grey;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane20" layoutX="314.0" layoutY="164.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane21" layoutX="389.0" layoutY="164.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: grey;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane22" layoutX="464.0" layoutY="164.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane23" layoutX="539.0" layoutY="164.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: grey;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane24" layoutX="14.0" layoutY="239.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: grey;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane25" layoutX="89.0" layoutY="239.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane26" layoutX="164.0" layoutY="239.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: grey;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane27" layoutX="239.0" layoutY="239.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane28" layoutX="314.0" layoutY="239.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: grey;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane29" layoutX="389.0" layoutY="239.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane30" layoutX="464.0" layoutY="239.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: grey;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane31" layoutX="539.0" layoutY="239.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane32" layoutX="14.0" layoutY="314.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane33" layoutX="89.0" layoutY="314.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: grey;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane34" layoutX="164.0" layoutY="314.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane35" layoutX="239.0" layoutY="314.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: grey;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane36" layoutX="314.0" layoutY="314.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane37" layoutX="389.0" layoutY="314.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: grey;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane38" layoutX="464.0" layoutY="314.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane39" layoutX="539.0" layoutY="314.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: grey;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane40" layoutX="14.0" layoutY="389.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: grey;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane41" layoutX="89.0" layoutY="389.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane42" layoutX="164.0" layoutY="389.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: grey;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane43" layoutX="239.0" layoutY="389.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane44" layoutX="314.0" layoutY="389.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: grey;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane45" layoutX="389.0" layoutY="389.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane46" layoutX="464.0" layoutY="389.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: grey;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane47" layoutX="539.0" layoutY="389.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane48" layoutX="14.0" layoutY="464.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane49" layoutX="89.0" layoutY="464.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: grey;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane50" layoutX="164.0" layoutY="464.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane51" layoutX="239.0" layoutY="464.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: grey;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane52" layoutX="314.0" layoutY="464.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane53" layoutX="389.0" layoutY="464.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: grey;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane54" layoutX="464.0" layoutY="464.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane55" layoutX="539.0" layoutY="464.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: grey;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane56" layoutX="14.0" layoutY="539.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: grey;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane57" layoutX="89.0" layoutY="539.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane58" layoutX="164.0" layoutY="539.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: grey;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane59" layoutX="239.0" layoutY="539.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane60" layoutX="314.0" layoutY="539.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: grey;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane61" layoutX="389.0" layoutY="539.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane62" layoutX="464.0" layoutY="539.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: grey;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="pane63" layoutX="539.0" layoutY="539.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <ImageView fx:id="dragImage" fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
-      <Button layoutX="589.0" layoutY="281.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="70.0" text="Reset" AnchorPane.bottomAnchor="256.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="281.0" />
    </children>
 </AnchorPane>

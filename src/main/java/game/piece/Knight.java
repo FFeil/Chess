@@ -33,4 +33,9 @@ public class Knight extends Piece {
     public boolean canMoveAnywhere() {
         return CanMoveAnywhereHelper.canMoveAnywhere(this, -2);
     }
+
+    @Override
+    public String getImagePath() {
+        return "src/main/resources/picture/" + color.toString().toLowerCase() + "_" + "knight.png";
+    }
 }

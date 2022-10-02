@@ -28,4 +28,9 @@ public class Queen extends Piece {
     public boolean canMoveAnywhere() {
         return StraightHelper.canMoveAnywhere(this) || DiagonalHelper.canMoveAnywhere(this);
     }
+
+    @Override
+    public String getImagePath() {
+        return "src/main/resources/picture/" + color.toString().toLowerCase() + "_" + "queen.png";
+    }
 }
