@@ -44,18 +44,17 @@ public class Game {
         ArrayList<Integer[]> squaresToUpdate = new ArrayList<>();
         Square oldSquare = board.getSquares()[oldX][oldY];
 
-        if (currentPlayer == oldSquare.getColor() && oldSquare.getPiece().move(newX, newY)) {
-            switchPlayer();
+        if (!oldSquare.isEmpty()) {
+            if (currentPlayer == oldSquare.getPiece().getColor() && oldSquare.getPiece().move(newX, newY)) {
+                switchPlayer();
 
-            squaresToUpdate.add(new Integer[] {oldX, oldY});
-            squaresToUpdate.add(new Integer[] {newX, newY});
-            squaresToUpdate.add(board.getOldRookCoord());
-            squaresToUpdate.add(board.getNewRookCoord());
-            squaresToUpdate.removeIf(Objects::isNull);
-
-            return squaresToUpdate;
+                squaresToUpdate.add(new Integer[]{oldX, oldY});
+                squaresToUpdate.add(new Integer[]{newX, newY});
+                squaresToUpdate.add(board.getOldRookCoord());
+                squaresToUpdate.add(board.getNewRookCoord());
+                squaresToUpdate.removeIf(Objects::isNull);
+            }
         }
-
         return squaresToUpdate;
     }
 

@@ -3,6 +3,7 @@ package com.javaFX;
 import game.Game;
 import game.board.Square;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.ImageCursor;
@@ -14,6 +15,7 @@ import javafx.scene.layout.Pane;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
@@ -154,8 +156,7 @@ public class ChessController {
     private Pane chessPane;
 
     private Pane[][] panes;
-    private Pane sourcePane;
-    private Pane targetPane;
+    private int[] oldCoord;
 
     private Game game;
 
@@ -174,6 +175,8 @@ public class ChessController {
         game = new Game();
 
         initImageViews();
+
+        dragImage.toBack();
     }
 
     private int[] getCoord(Pane pane) {
@@ -193,7 +196,7 @@ public class ChessController {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (!squares[i][j].isEmpty()) {
-                    setImage(i, j, squares[i][j].getPiece().getImagePath());
+                    setImage(i, j, new Image(new File(squares[i][j].getPiece().getImagePath()).toURI().toString()));
                 }
             }
         }
@@ -203,49 +206,66 @@ public class ChessController {
         return ((ImageView) panes[x][y].getChildren().get(0)).getImage();
     }
 
-    private void setImage(int x, int y, String image) {
-        ((ImageView) panes[x][y].getChildren().get(0)).setImage(new Image(new File(image).toURI().toString()));
+    private void setImage(int x, int y, Image image) {
+        ((ImageView) panes[x][y].getChildren().get(0)).setImage(image);
     }
 
     @FXML
     private void onDragDetected(MouseEvent event) {
         Pane sourcePane = ((Pane) event.getSource());
-        int[] coord = getCoord(sourcePane);
-        assert coord != null;
 
-        if (!game.getBoard().getSquares()[coord[0]][coord[1]].isEmpty()) {
+        oldCoord = getCoord(sourcePane);
+        assert oldCoord != null;
+
+        pane.startFullDrag();
+
+        if (!game.getBoard().getSquares()[oldCoord[0]][oldCoord[1]].isEmpty()) {
             dragImage.setDisable(false);
-            dragImage.setImage(getImage(coord[0], coord[1]));
-            chessPane.setCursor(Cursor.NONE);
+            dragImage.setImage(getImage(oldCoord[0], oldCoord[1]));
+            dragImage.toFront();
+            //chessPane.setCursor(Cursor.NONE);
 
             ((ImageView) sourcePane.getChildren().get(0)).setImage(null);
-            sourcePane.startDragAndDrop(TransferMode.ANY);
-            event.consume();
+
         }
-    }
-
-    @FXML
-    private void onDragDropped(DragEvent event) {
-    }
-
-    @FXML
-    private void onDragOver(DragEvent event) {
-        sourcePane = null;
-
         event.consume();
     }
 
     @FXML
     private void onMouseDragged(MouseEvent event) {
-        dragImage.setX(event.getX() - 37);
-        dragImage.setY(event.getY() - 37);
+        dragImage.setX(event.getX());
+        dragImage.setY(event.getY());
     }
 
     @FXML
-    private void onMouseReleased(MouseEvent event) {
-        chessPane.setCursor(Cursor.DEFAULT);
-        dragImage.setDisable(true);
-        dragImage.setImage(null);
+    private void onMouseDragReleased(MouseEvent event) {
+     if (((ImageView) event.getTarget()).getParent() instanceof Pane) {
+         int [] newCoord = getCoord((Pane) ((ImageView) event.getTarget()).getParent());
+
+         assert newCoord != null;
+
+         ArrayList<Integer[]> updateList = game.makeMove(oldCoord[0], oldCoord[1], newCoord[0], newCoord[1]);
+
+         if (updateList.isEmpty()) {
+             setImage(oldCoord[0], oldCoord[1], dragImage.getImage());
+         } else {
+             updateList.forEach(coord -> {
+                 Square square = game.getBoard().getSquares()[coord[0]][coord[1]];
+                 if (square.isEmpty()) {
+                     setImage(coord[0], coord[1], null);
+                 } else {
+                     setImage(coord[0], coord[1], new Image(new File(square.getPiece().getImagePath()).toURI().toString()));
+
+                 }
+             });
+         }
+     }
+
+     oldCoord = null;
+     chessPane.setCursor(Cursor.DEFAULT);
+     dragImage.setDisable(true);
+     dragImage.toBack();
+     dragImage.setImage(null);
     }
 
     @FXML
