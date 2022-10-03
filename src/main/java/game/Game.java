@@ -75,7 +75,7 @@ public class Game {
     }
 
     public boolean checkStalemate() {
-        return board.getPieceSet(nextPlayer).stream().anyMatch(Piece::canMoveAnywhere);
+        return board.getPieceSet(nextPlayer).stream().noneMatch(Piece::canMoveAnywhere);
     }
 
     public boolean checkInsufficientMaterial() {

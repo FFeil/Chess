@@ -330,7 +330,7 @@
                   <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </Pane>
-            <ImageView fx:id="dragImage" disable="true" fitHeight="75.0" fitWidth="75.0" layoutY="-23.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="dragImage" disable="true" fitHeight="75.0" fitWidth="75.0" layoutY="-23.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
    </children>
