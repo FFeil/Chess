@@ -12,11 +12,8 @@ public class Queen extends Piece {
 
     @Override
     public boolean move(int newX, int newY) {
-        if (canMoveTo(newX, newY) && !board.kingHasXray(getX(), getY(), newX, newY, color)) {
-            changePosition(newX, newY);
-            return true;
-        }
-        return false;
+        changePosition(newX, newY);
+        return true;
     }
 
     @Override

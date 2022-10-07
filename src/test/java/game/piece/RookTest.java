@@ -48,9 +48,7 @@ class RookTest {
         squares[3][0].setPiece(new Rook(board, WHITE, 3, 0));
         squares[3][1].setPiece(new Bishop(board, WHITE, 3, 1));
 
-        Assertions.assertFalse(squares[3][0].getPiece().move(3, 1));
-        Assertions.assertTrue(squares[3][0].getPiece() instanceof Rook);
-        Assertions.assertTrue(squares[3][1].getPiece() instanceof Bishop);
+        Assertions.assertFalse(squares[3][0].getPiece().canMoveTo(3, 1));
     }
 
     @Test
@@ -59,22 +57,22 @@ class RookTest {
         squares[3][1].setPiece(new Rook(board, BLACK, 3, 1));
         squares[4][0].setPiece(new Rook(board, BLACK, 4, 0));
 
-        Assertions.assertFalse(squares[3][0].getPiece().move(3, 7));
-        Assertions.assertFalse(squares[3][0].getPiece().move(5, 0));
+        Assertions.assertFalse(squares[3][0].getPiece().canMoveTo(3, 7));
+        Assertions.assertFalse(squares[3][0].getPiece().canMoveTo(5, 0));
     }
 
     @Test
     void dontMove() {
         squares[4][0].setPiece(new Rook(board, WHITE, 4, 0));
 
-        Assertions.assertFalse(squares[4][0].getPiece().move(4, 0));
+        Assertions.assertFalse(squares[4][0].getPiece().canMoveTo(4, 0));
     }
 
     @Test
     void moveNotStraight() {
         squares[4][0].setPiece(new Rook(board, WHITE, 4, 0));
 
-        Assertions.assertFalse(squares[4][0].getPiece().move(5, 4));
+        Assertions.assertFalse(squares[4][0].getPiece().canMoveTo(5, 4));
     }
 
     @Test

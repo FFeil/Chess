@@ -64,10 +64,6 @@ public class StraightHelper {
             if (!piece.getBoard().getSquares()[piece.getX()][i].isEmpty()) {
                 return false;
             }
-            if (piece instanceof King // castling
-                    && piece.getBoard().pieceCanBeTakenAt(piece.getX(), i, piece.getColor())) {
-                return false;
-            }
         }
 
         return true;

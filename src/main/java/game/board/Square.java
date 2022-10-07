@@ -5,16 +5,10 @@ import game.piece.Piece;
 
 public class Square {
 
-    private final Color color;
     private Piece piece;
 
-    public Square (Color color) {
-        this.color = color;
+    public Square () {
         piece = null;
-    }
-
-    public Color getColor() {
-        return color;
     }
 
     public Piece getPiece() {

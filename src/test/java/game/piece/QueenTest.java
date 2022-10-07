@@ -61,9 +61,7 @@ class QueenTest {
         squares[3][0].setPiece(new Queen(board, WHITE, 3, 0));
         squares[3][1].setPiece(new Bishop(board, WHITE, 3, 1));
 
-        Assertions.assertFalse(squares[3][0].getPiece().move(3, 1));
-        Assertions.assertTrue(squares[3][0].getPiece() instanceof Queen);
-        Assertions.assertTrue(squares[3][1].getPiece() instanceof Bishop);
+        Assertions.assertFalse(squares[3][0].getPiece().canMoveTo(3, 1));
     }
 
     @Test
@@ -71,21 +69,21 @@ class QueenTest {
         squares[3][0].setPiece(new Queen(board, WHITE, 3, 0));
         squares[3][1].setPiece(new Rook(board, BLACK, 3, 1));
 
-        Assertions.assertFalse(squares[3][0].getPiece().move(3, 2));
+        Assertions.assertFalse(squares[3][0].getPiece().canMoveTo(3, 2));
     }
 
     @Test
     void dontMove() {
         squares[4][0].setPiece(new Queen(board, WHITE, 4, 0));
 
-        Assertions.assertFalse(squares[4][0].getPiece().move(4, 0));
+        Assertions.assertFalse(squares[4][0].getPiece().canMoveTo(4, 0));
     }
 
     @Test
     void moveNotStraightOrDiagonal() {
         squares[2][3].setPiece(new Queen(board, WHITE, 2, 3));
 
-        Assertions.assertFalse(squares[2][3].getPiece().move(4, 4));
+        Assertions.assertFalse(squares[2][3].getPiece().canMoveTo(4, 4));
     }
 
     @Test

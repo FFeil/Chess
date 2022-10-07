@@ -39,13 +39,12 @@ class KnightTest {
     void movePieceOfSameColor() {
         squares[2][2].setPiece(new Queen(board, BLACK, 2, 2));
 
-        Assertions.assertFalse(squares[0][1].getPiece().move(2, 2));
-        Assertions.assertTrue(squares[0][1].getPiece() instanceof Knight);
-        Assertions.assertTrue(squares[2][2].getPiece() instanceof Queen);
+        Assertions.assertFalse(squares[0][1].getPiece().canMoveTo(2, 2));
+
     }
 
     @Test
     public void dontMove() {
-        Assertions.assertFalse(squares[0][1].getPiece().move(0, 1));
+        Assertions.assertFalse(squares[0][1].getPiece().canMoveTo(0, 1));
     }
 }

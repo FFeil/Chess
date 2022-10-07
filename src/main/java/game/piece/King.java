@@ -5,9 +5,6 @@ import game.board.Square;
 import game.piece.helper.CanMoveAnywhereHelper;
 import game.piece.helper.StraightHelper;
 
-import static game.piece.Color.BLACK;
-import static game.piece.Color.WHITE;
-
 public class King extends Piece {
 
     private boolean moved;
@@ -21,13 +18,14 @@ public class King extends Piece {
     public boolean move(int newX, int newY) {
         if (canMoveTo(newX, newY)) {
             if (isSameColorRookAt(newX, newY)) {
+                board.getSquaresToUpdate().add(new Integer[] {newX, newY});
                 if (newY > y) { // short castle -> right
-                    board.setRookCoord(newX, newY, x, y + 1);
                     board.getSquares()[newX][newY].getPiece().changePosition(x, y + 1);
+                    board.getSquaresToUpdate().add(new Integer[] {newX, newY, x, y + 1});
                     changePosition(x, y + 2);
                 } else { // long castle -> left
-                    board.setRookCoord(newX, newY, x, y - 1);
                     board.getSquares()[newX][newY].getPiece().changePosition(x, y - 1);
+                    board.getSquaresToUpdate().add(new Integer[] {newX, newY, x, y - 1});
                     changePosition(x, y - 2);
                 }
                 board.decrMoveCount();
@@ -57,21 +55,13 @@ public class King extends Piece {
     }
 
     private boolean otherKingCanSee(int newX, int newY) {
-        Color otherColor;
-        if (color == WHITE) {
-            otherColor = BLACK;
-        } else {
-            otherColor = WHITE;
-        }
-
-        return ((King) board.getSquares()[board.getKingCoord(otherColor)[0]][board.getKingCoord(otherColor)[1]]
+        return ((King) board.getSquares()[board.getKingCoord(getOtherColor())[0]][board.getKingCoord(getOtherColor())[1]]
                 .getPiece()).canSee(newX, newY);
     }
 
     private boolean canCastle(int newX, int newY) {
         if (isSameColorRookAt(newX, newY) && !moved) {
-            return StraightHelper.moveCheck(this, newX, newY)
-                    && !board.pieceCanBeTakenAt(x, y, color);
+            return StraightHelper.moveCheck(this, newX, newY) && !board.kingCanBetaken(color);
         }
 
         return false;
@@ -81,8 +71,7 @@ public class King extends Piece {
         Square square = board.getSquares()[newX][newY];
 
         if (!square.isEmpty()) {
-            if (square.getPiece() instanceof Rook
-                    && square.getPiece().getColor() == color) {
+            if (square.getPiece() instanceof Rook && square.getPiece().getColor() == color) {
                 return (!((Rook) square.getPiece()).hasMoved());
             }
         }

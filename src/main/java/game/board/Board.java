@@ -1,10 +1,9 @@
 package game.board;
 
 import game.piece.*;
+import javafx.scene.layout.Pane;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import static game.piece.Color.BLACK;
 import static game.piece.Color.WHITE;
@@ -17,8 +16,7 @@ public class Board {
     private boolean promotePawn;
     private final int[] whiteKingCoord;
     private final int[] blackKingCoord;
-    private Integer[] oldRookCoord;
-    private Integer[] newRookCoord;
+    private final ArrayList<Integer[]> squaresToUpdate;
     private int moveCount; // 50 move rule
     //private int repetitionCount;
 
@@ -26,8 +24,7 @@ public class Board {
         promotePawn = false;
         whiteKingCoord = new int[2];
         blackKingCoord = new int[2];
-        oldRookCoord = null;
-        newRookCoord = null;
+        squaresToUpdate = new ArrayList<>();
         moveCount = 0;
         //repetitionCount = 0;
 
@@ -35,13 +32,19 @@ public class Board {
         whitePieces = new HashSet<>();
         blackPieces = new HashSet<>();
 
-        initiateSquares();
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                squares[i][j] = new Square();
+            }
+        }
+
         initiatePieces();
     }
 
     public Square[][] getSquares() {
         return squares;
     }
+
 
     public boolean isPromotePawn() {
         return promotePawn;
@@ -60,14 +63,6 @@ public class Board {
             whitePieces.add(piece);
         } else {
             blackPieces.add(piece);
-        }
-    }
-
-    public void removePiece(Color color, Piece piece) {
-        if (color == WHITE) {
-            whitePieces.remove(piece);
-        } else {
-            blackPieces.remove(piece);
         }
     }
 
@@ -93,23 +88,8 @@ public class Board {
         }
     }
 
-    public Integer[] getOldRookCoord() {
-        Integer[] oldRookCoord = this.oldRookCoord;
-        this.oldRookCoord = null;
-
-        return oldRookCoord;
-    }
-
-    public Integer[] getNewRookCoord() {
-        Integer[] newRookCoord = this.newRookCoord;
-        this.newRookCoord = null;
-
-        return newRookCoord;
-    }
-
-    public void setRookCoord(int oldX, int oldY, int newX, int newY) {
-        oldRookCoord = new Integer[] {oldX, oldY};
-        newRookCoord = new Integer[] {newX, newY};
+    public ArrayList<Integer[]> getSquaresToUpdate() {
+        return squaresToUpdate;
     }
 
     public int getMoveCount() {
@@ -188,40 +168,23 @@ public class Board {
         }
     }
 
-    private void initiateSquares() {
-        Color[] colors = {WHITE, BLACK};
-        int colorIndex;
-
-        for (int i = 0; i < 8; i ++) {
-            if (i % 2 == 0) {
-                colorIndex = 0;
-            } else {
-                colorIndex = 1;
-            }
-            for (int j = 0; j < 8; j++) {
-                squares[i][j] = new Square(colors[colorIndex++ % 2]);
-            }
-        }
-    }
-
-    public boolean kingHasXray(int oldX, int oldY, int newX, int newY, Color currentPlayer) {
-        boolean result = false;
-
+    public boolean kingHasXray(int oldX, int oldY, int newX, int newY) { // TODO remove
         Piece movingPiece = squares[oldX][oldY].getPiece();
         squares[oldX][oldY].removePiece();
 
         Piece pieceToBeTaken = null;
         if (!squares[newX][newY].isEmpty()) {
-            squares[newX][newY].removePiece();
             pieceToBeTaken = squares[newX][newY].getPiece();
+            getPieceSet(pieceToBeTaken.getColor()).remove(pieceToBeTaken);
+            squares[newX][newY].removePiece();
         }
 
-        if (pieceCanBeTakenAt(getKingCoord(currentPlayer)[0], getKingCoord(currentPlayer)[1], currentPlayer)) {
-            result = true;
-        }
+        boolean result = kingCanBetaken(movingPiece.getColor());
 
         squares[oldX][oldY].setPiece(movingPiece);
         squares[newX][newY].setPiece(pieceToBeTaken);
+        getPieceSet(movingPiece.getOtherColor()).add(pieceToBeTaken);
+        getPieceSet(movingPiece.getOtherColor()).removeIf(Objects::isNull);
 
         return result;
     }
@@ -231,6 +194,47 @@ public class Board {
             return blackPieces.stream().anyMatch(piece -> piece.canMoveTo(x, y) && !(piece instanceof King));
         } else {
             return whitePieces.stream().anyMatch(piece -> piece.canMoveTo(x, y) && !(piece instanceof King));
+        }
+    }
+
+    public boolean kingCanBetaken(Color currentPlayer) {
+        if (currentPlayer == BLACK) {
+            return pieceCanBeTakenAt(blackKingCoord[0], blackKingCoord[1], BLACK);
+        } else {
+            return pieceCanBeTakenAt(whiteKingCoord[0], whiteKingCoord[1], WHITE);
+        }
+    }
+
+    public void copySquares(Square[][] squares) {
+        whitePieces.clear();
+        blackPieces.clear();
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (!squares[i][j].isEmpty()) {
+                    Color color = squares[i][j].getPiece().getColor();
+                    int x = squares[i][j].getPiece().getX();
+                    int y = squares[i][j].getPiece().getY();
+
+                    if (squares[i][j].getPiece() instanceof Pawn) {
+                        this.squares[i][j].setPiece(new Pawn(this, color, x, y));
+                    } else if (squares[i][j].getPiece() instanceof Rook) {
+                        this.squares[i][j].setPiece(new Rook(this, color, x, y));
+                    } else if (squares[i][j].getPiece() instanceof Knight) {
+                        this.squares[i][j].setPiece(new Knight(this, color, x, y));
+                    } else if (squares[i][j].getPiece() instanceof Bishop) {
+                        this.squares[i][j].setPiece(new Bishop(this, color, x, y));
+                    } else if (squares[i][j].getPiece() instanceof Queen) {
+                        this.squares[i][j].setPiece(new Queen(this, color, x, y));
+                    } else if (squares[i][j].getPiece() instanceof King) {
+                        this.squares[i][j].setPiece(new King(this, color, x, y));
+                    }
+
+                    getPieceSet(color).add(squares[i][j].getPiece());
+                } else {
+                    this.squares[i][j].removePiece();
+                }
+            }
         }
     }
 }

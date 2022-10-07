@@ -5,7 +5,6 @@ import game.board.Square;
 import game.piece.*;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import static game.piece.Color.BLACK;
 import static game.piece.Color.WHITE;
@@ -41,21 +40,30 @@ public class Game {
     }
 
     public ArrayList<Integer[]> makeMove(int oldX, int oldY, int newX, int newY) {
-        ArrayList<Integer[]> squaresToUpdate = new ArrayList<>();
+        board.getSquaresToUpdate().clear();
         Square oldSquare = board.getSquares()[oldX][oldY];
 
         if (!oldSquare.isEmpty()) {
-            if (currentPlayer == oldSquare.getPiece().getColor() && oldSquare.getPiece().move(newX, newY)) {
-                switchPlayer();
+            Piece currentPiece = oldSquare.getPiece();
 
-                squaresToUpdate.add(new Integer[]{oldX, oldY});
-                squaresToUpdate.add(new Integer[]{newX, newY});
-                squaresToUpdate.add(board.getOldRookCoord());
-                squaresToUpdate.add(board.getNewRookCoord());
-                squaresToUpdate.removeIf(Objects::isNull);
+            if (currentPlayer == currentPiece.getColor()) {
+                if (moveIsValid(oldX, oldY, newX, newY)) {
+
+                  // for (int i = 0; i < 8; i++) {
+                  //     for (int j = 0; j < 8; j++) {
+                  //         System.out.print(board.getSquares()[i][j].getPiece() + ", ");
+                  //         }
+                  //     System.out.println();
+                  //     }
+                  // System.out.println();
+
+                    currentPiece.move(newX, newY);
+                    switchPlayer();
+                }
             }
         }
-        return squaresToUpdate;
+
+        return board.getSquaresToUpdate();
     }
 
     public boolean checkEnd() {
@@ -63,8 +71,8 @@ public class Game {
     }
 
     public boolean checkCheckMate() {
-        int x =  board.getKingCoord(currentPlayer)[0];
-        int y =  board.getKingCoord(currentPlayer)[1];
+        int x = board.getKingCoord(currentPlayer)[0];
+        int y = board.getKingCoord(currentPlayer)[1];
 
         return board.pieceCanBeTakenAt(x, y, currentPlayer)
                 && !board.getSquares()[x][y].getPiece().canMoveAnywhere();
@@ -97,6 +105,24 @@ public class Game {
     }
 
     public boolean checkRepetition() {
+        return false;
+    }
+
+    private boolean moveIsValid(int oldX, int oldY, int newX, int newY) {
+        Board boardCopy = new Board();
+        boardCopy.copySquares(board.getSquares());
+        boardCopy.setKingCoord(WHITE, board.getKingCoord(WHITE)[0], board.getKingCoord(WHITE)[1]);
+        boardCopy.setKingCoord(BLACK, board.getKingCoord(BLACK)[0], board.getKingCoord(BLACK)[1]);
+
+        Square oldSquare = boardCopy.getSquares()[oldX][oldY];
+        Piece currentPiece = oldSquare.getPiece();
+
+        if (currentPiece.canMoveTo(newX, newY)) {
+            currentPiece.move(newX, newY);
+
+            return !boardCopy.kingCanBetaken(currentPlayer);
+        }
+
         return false;
     }
 }

@@ -18,14 +18,10 @@ public class Rook extends Piece {
 
     @Override
     public boolean move(int newX, int newY) {
-        if (canMoveTo(newX, newY) && !board.kingHasXray(getX(), getY(), newX, newY, color)) {
-            changePosition(newX, newY);
-            moved = true;
+        changePosition(newX, newY);
+        moved = true;
 
-            return true;
-        }
-
-        return false;
+        return true;
     }
 
     @Override

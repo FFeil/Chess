@@ -117,19 +117,19 @@ public class BoardTest {
         board.getPieceSet(WHITE).add(squares[1][0].getPiece());
         board.getPieceSet(BLACK).add(squares[2][0].getPiece());
 
-        Assertions.assertTrue(board.kingHasXray(1, 0, 1, 1, WHITE));
+        Assertions.assertTrue(board.kingHasXray(1, 0, 1, 1));
 
         squares[1][1].setPiece(new Queen(board, WHITE, 1, 1));
         squares[2][2].setPiece(new Bishop(board, BLACK, 2, 2));
         board.getPieceSet(WHITE).add(squares[1][1].getPiece());
         board.getPieceSet(BLACK).add(squares[2][2].getPiece());
 
-        Assertions.assertTrue(board.kingHasXray(1, 1, 0, 1, WHITE));
+        Assertions.assertTrue(board.kingHasXray(1, 1, 0, 1));
     }
 
     @Test
     void kingHasNoXray() {
-        Assertions.assertFalse(board.kingHasXray(1, 0, 2, 0,  WHITE));
-        Assertions.assertFalse(board.kingHasXray(0, 1, 2, 2,  WHITE));
+        Assertions.assertFalse(board.kingHasXray(1, 0, 2, 0));
+        Assertions.assertFalse(board.kingHasXray(0, 1, 2, 2));
     }
 }

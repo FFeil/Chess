@@ -15,50 +15,57 @@ public class DiagonalHelper {
                     && (square.isEmpty() || square.containsPieceOfOtherColor(piece.getColor()))
                     && noPiecesDiagonal(piece, newX, newY);
         }
+
         return false;
     }
 
     private static boolean noPiecesDiagonal(Piece piece, int newX, int newY) {
-        int biggerX;
-        int smallerX;
-        int smallerY;
+        int xStep;
+        int yStep;
 
         if (newX > piece.getX()) {
-            biggerX = newX;
-            smallerX = piece.getX() + 1;
+            xStep = 1;
         } else {
-            biggerX = piece.getX();
-            smallerX = newX + 1;
+            xStep = -1;
         }
         if (newY > piece.getY()) {
-            smallerY = piece.getY() + 1;
+            yStep = 1;
         } else {
-            smallerY = newY + 1;
+            yStep = -1;
         }
 
-        for (int i = smallerX; i < biggerX; i++) {
-            if (!piece.getBoard().getSquares()[i][smallerY].isEmpty()) {
-                return false;
+        int j = piece.getY() + yStep;
+        for (int i = piece.getX() + xStep; piece.getXDistance(i) < piece.getXDistance(newX) ; i+=xStep) {
+            if (i * yStep > -1) {
+                if (!piece.getBoard().getSquares()[i][j].isEmpty()) {
+                    return false;
+                }
             }
-            smallerY++;
+            j+=yStep;
         }
 
         return true;
     }
 
     public static boolean canMoveAnywhere(Piece piece) {
+        int j = piece.getX();
         for (int i = 0; i < 8; i++) {
-            if (piece.canMoveTo(i, i)) {
-                return true;
-            }
-        }
-
-        int j = 0;
-        for (int i = 7; i > 0; i--) {
-            if (piece.canMoveTo(i, j)) {
-                return true;
+            if (piece.getY() - j > -1 && piece.getY() - j < 8) {
+                if (piece.canMoveTo(i, piece.getY() - j)) {
+                    return true;
+                }
             }
             j++;
+        }
+
+        j = piece.getX();
+        for (int i = 0; i < 8; i++) {
+            if (piece.getY() + j > -1 && piece.getY() + j < 8) {
+                if (piece.canMoveTo(i, piece.getY() + j)) {
+                    return true;
+                }
+            }
+            j--;
         }
         return false;
     }

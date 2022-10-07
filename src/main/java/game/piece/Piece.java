@@ -3,6 +3,9 @@ package game.piece;
 import game.board.Board;
 import game.board.Square;
 
+import static game.piece.Color.BLACK;
+import static game.piece.Color.WHITE;
+
 public abstract class Piece {
 
     protected Board board;
@@ -43,19 +46,20 @@ public abstract class Piece {
     public abstract String getImagePath();
 
     protected void changePosition(int newX, int newY) {
-        board.incrMoveCount();
         Square[][] squares = board.getSquares();
+        board.getSquaresToUpdate().add(new Integer[] {x , y});
+        board.getSquaresToUpdate().add(new Integer[] {newX , newY});
+        board.incrMoveCount();
 
         if (!squares[newX][newY].isEmpty()) {
-            board.removePiece(squares[newX][newY].getPiece().color, squares[newX][newY].getPiece());
+            board.getPieceSet(squares[newX][newY].getPiece().color).remove(squares[newX][newY].getPiece());
             board.resetMoveCount();
         }
 
-        squares[x][y].removePiece();
         squares[newX][newY].setPiece(this);
+        squares[x][y].removePiece();
         x = newX;
         y = newY;
-
     }
 
     public int getXDistance(int newX) {
@@ -64,5 +68,13 @@ public abstract class Piece {
 
     public int getYDistance(int newY) {
         return Math.abs(y - newY);
+    }
+
+    public Color getOtherColor() {
+        if (color == WHITE) {
+            return BLACK;
+        }
+
+        return WHITE;
     }
 }
