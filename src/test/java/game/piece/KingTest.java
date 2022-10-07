@@ -31,11 +31,11 @@ public class KingTest {
 
         Assertions.assertTrue(squares[4][4].getPiece() instanceof King);
 
-        Assertions.assertTrue(squares[4][4].getPiece().move(5, 4));
+        squares[4][4].getPiece().move(5, 4);
         Assertions.assertTrue(squares[4][4].isEmpty());
         Assertions.assertTrue(squares[5][4].getPiece() instanceof King);
 
-        Assertions.assertTrue(squares[5][4].getPiece().move(4, 4));
+        squares[5][4].getPiece().move(4, 4);
         Assertions.assertTrue(squares[5][4].isEmpty());
         Assertions.assertTrue(squares[4][4].getPiece() instanceof King);
     }
@@ -46,7 +46,7 @@ public class KingTest {
 
         Assertions.assertTrue(squares[4][4].getPiece() instanceof King);
 
-        Assertions.assertFalse(squares[4][4].getPiece().move(4, 4));
+        Assertions.assertFalse(squares[4][4].getPiece().canMoveTo(4, 4));
         Assertions.assertTrue(squares[4][4].getPiece() instanceof King);
     }
 
@@ -60,7 +60,7 @@ public class KingTest {
         Assertions.assertTrue(squares[4][4].getPiece() instanceof King);
         Assertions.assertTrue(squares[4][5].getPiece() instanceof Pawn);
 
-        Assertions.assertTrue(squares[4][4].getPiece().move(4, 5));
+        squares[4][4].getPiece().move(4, 5);
         Assertions.assertTrue(squares[4][5].getPiece() instanceof King);
     }
 
@@ -74,7 +74,7 @@ public class KingTest {
         Assertions.assertTrue(squares[4][4].getPiece() instanceof King);
         Assertions.assertTrue(squares[4][5].getPiece() instanceof Pawn);
 
-        Assertions.assertFalse(squares[4][4].getPiece().move(4, 5));
+        Assertions.assertFalse(squares[4][4].getPiece().canMoveTo(4, 5));
         Assertions.assertTrue(squares[4][4].getPiece() instanceof King);
         Assertions.assertTrue(squares[4][5].getPiece() instanceof Pawn);
     }
@@ -87,7 +87,7 @@ public class KingTest {
         board.setKingCoord(BLACK, 0, 4);
         squares[4][4].setPiece(new King(board, BLACK, 0, 4));
 
-        Assertions.assertFalse(squares[4][4].getPiece().move(4, 5));
+        Assertions.assertFalse(squares[4][4].getPiece().canMoveTo(4, 5));
         Assertions.assertTrue(squares[4][4].getPiece() instanceof King);
         Assertions.assertTrue(squares[4][5].isEmpty());
     }
@@ -101,11 +101,11 @@ public class KingTest {
         squares[0][0].setPiece(new Rook(board, BLACK, 0, 0));
         squares[7][7].setPiece(new Rook(board, WHITE, 7, 7));
 
-        Assertions.assertTrue(squares[0][4].getPiece().move(0, 0));
+        squares[0][4].getPiece().move(0, 0);
         Assertions.assertTrue(squares[0][2].getPiece() instanceof King);
         Assertions.assertTrue(squares[0][3].getPiece() instanceof Rook);
 
-        Assertions.assertTrue(squares[7][4].getPiece().move(7, 7));
+        squares[7][4].getPiece().move(7, 7);
         Assertions.assertTrue(squares[7][6].getPiece() instanceof King);
         Assertions.assertTrue(squares[7][5].getPiece() instanceof Rook);
     }
@@ -120,7 +120,7 @@ public class KingTest {
         board.getPieceSet(WHITE).add(squares[7][7].getPiece());
         board.getPieceSet(BLACK).add(squares[5][5].getPiece());
 
-        Assertions.assertFalse(squares[7][4].getPiece().move(7, 7));
+        Assertions.assertFalse(squares[7][4].getPiece().canMoveTo(7, 7));
         Assertions.assertTrue(squares[7][4].getPiece() instanceof King);
         Assertions.assertTrue(squares[7][7].getPiece() instanceof Rook);
         Assertions.assertTrue(squares[7][6].isEmpty());
@@ -134,7 +134,7 @@ public class KingTest {
         squares[7][7].setPiece(new Rook(board, WHITE, 7, 7));
         squares[7][5].setPiece(new Queen(board, WHITE, 7, 5));
 
-        Assertions.assertFalse(squares[7][4].getPiece().move(7, 7));
+        Assertions.assertFalse(squares[7][4].getPiece().canMoveTo(7, 7));
         Assertions.assertTrue(squares[7][4].getPiece() instanceof King);
         Assertions.assertTrue(squares[7][7].getPiece() instanceof Rook);
         Assertions.assertTrue(squares[7][5].getPiece() instanceof Queen);
@@ -153,7 +153,7 @@ public class KingTest {
         board.setKingCoord(BLACK, 0, 4);
         squares[7][4].setPiece(new King(board, WHITE, 0, 4));
 
-        Assertions.assertFalse(squares[7][4].getPiece().move(7, 7));
+        Assertions.assertFalse(squares[7][4].getPiece().canMoveTo(7, 7));
         Assertions.assertTrue(squares[7][4].getPiece() instanceof King);
         Assertions.assertTrue(squares[7][7].getPiece() instanceof Rook);
         Assertions.assertTrue(squares[4][4].getPiece() instanceof Queen);

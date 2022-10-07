@@ -15,31 +15,25 @@ public class King extends Piece {
     }
 
     @Override
-    public boolean move(int newX, int newY) {
-        if (canMoveTo(newX, newY)) {
-            if (isSameColorRookAt(newX, newY)) {
-                board.getSquaresToUpdate().add(new Integer[] {newX, newY});
-                if (newY > y) { // short castle -> right
-                    board.getSquares()[newX][newY].getPiece().changePosition(x, y + 1);
-                    board.getSquaresToUpdate().add(new Integer[] {newX, newY, x, y + 1});
-                    changePosition(x, y + 2);
-                } else { // long castle -> left
-                    board.getSquares()[newX][newY].getPiece().changePosition(x, y - 1);
-                    board.getSquaresToUpdate().add(new Integer[] {newX, newY, x, y - 1});
-                    changePosition(x, y - 2);
-                }
-                board.decrMoveCount();
-            } else {
-                changePosition(newX, newY);
+    public void move(int newX, int newY) {
+        if (isSameColorRookAt(newX, newY)) {
+            board.getSquaresToUpdate().add(new Integer[]{newX, newY});
+            if (newY > y) { // short castle -> right
+                board.getSquares()[newX][newY].getPiece().changePosition(x, y + 1);
+                board.getSquaresToUpdate().add(new Integer[]{newX, newY, x, y + 1});
+                changePosition(x, y + 2);
+            } else { // long castle -> left
+                board.getSquares()[newX][newY].getPiece().changePosition(x, y - 1);
+                board.getSquaresToUpdate().add(new Integer[]{newX, newY, x, y - 1});
+                changePosition(x, y - 2);
             }
-
-            board.setKingCoord(color, newX, newY);
-            moved = true;
-
-            return true;
+            board.decrMoveCount();
+        } else {
+            changePosition(newX, newY);
         }
 
-        return false;
+        board.setKingCoord(color, newX, newY);
+        moved = true;
     }
 
     @Override

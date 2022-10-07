@@ -19,11 +19,11 @@ class QueenTest {
 
         Assertions.assertTrue(squares[4][4].getPiece() instanceof Queen);
 
-        Assertions.assertTrue(squares[4][4].getPiece().move(4, 0));
+        squares[4][4].getPiece().move(4, 0);
         Assertions.assertTrue(squares[4][4].isEmpty());
         Assertions.assertTrue(squares[4][0].getPiece() instanceof Queen);
 
-        Assertions.assertTrue(squares[4][0].getPiece().move(2, 0));
+        squares[4][0].getPiece().move(2, 0);
         Assertions.assertTrue(squares[4][0].isEmpty());
         Assertions.assertTrue(squares[2][0].getPiece() instanceof Queen);
     }
@@ -32,11 +32,11 @@ class QueenTest {
     void moveDiagonal() {
         squares[4][4].setPiece(new Queen(board, WHITE, 4, 4));
 
-        Assertions.assertTrue(squares[4][4].getPiece().move(2, 2));
+        squares[4][4].getPiece().move(2, 2);
         Assertions.assertTrue(squares[4][4].isEmpty());
         Assertions.assertTrue(squares[2][2].getPiece() instanceof Queen);
 
-        Assertions.assertTrue(squares[2][2].getPiece().move(5, 5));
+        squares[2][2].getPiece().move(5, 5);
         Assertions.assertTrue(squares[2][2].isEmpty());
         Assertions.assertTrue(squares[5][5].getPiece() instanceof Queen);
     }
@@ -47,11 +47,11 @@ class QueenTest {
         squares[3][5].setPiece(new Rook(board, BLACK, 3, 5));
         squares[2][6].setPiece(new Rook(board, BLACK, 2, 6));
 
-        Assertions.assertTrue(squares[3][0].getPiece().move(3, 5));
+        squares[3][0].getPiece().move(3, 5);
         Assertions.assertTrue(squares[3][5].getPiece() instanceof Queen);
         Assertions.assertTrue(squares[3][0].isEmpty());
 
-        Assertions.assertTrue(squares[3][5].getPiece().move(2, 6));
+        squares[3][5].getPiece().move(2, 6);
         Assertions.assertTrue(squares[2][6].getPiece() instanceof Queen);
         Assertions.assertTrue(squares[3][5].isEmpty());
     }

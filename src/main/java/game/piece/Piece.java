@@ -37,7 +37,7 @@ public abstract class Piece {
         return y;
     }
 
-    public abstract boolean move(int newX, int newY);
+    public abstract void move(int newX, int newY);
 
     public abstract boolean canMoveTo(int newX, int newY);
 

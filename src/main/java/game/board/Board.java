@@ -59,15 +59,7 @@ public class Board {
         }
     }
 
-    public void addPiece(Color color, Piece piece) {
-        if (color == WHITE) {
-            whitePieces.add(piece);
-        } else {
-            blackPieces.add(piece);
-        }
-    }
-
-    public void setPromotePawn(Pawn pawnToPromote) {
+    public void setPawnToPromote(Pawn pawnToPromote) {
         this.pawnToPromote = pawnToPromote;
     }
 
@@ -207,7 +199,8 @@ public class Board {
                     Color color = squares[i][j].getPiece().getColor();
 
                     if (squares[i][j].getPiece() instanceof Pawn) {
-                        this.squares[i][j].setPiece(new Pawn(this, color, i, j));
+                        this.squares[i][j].setPiece(new Pawn(this, color, i, j,
+                                ((Pawn)(squares[i][j].getPiece())).hasJustMoved2Squares()));
                     } else if (squares[i][j].getPiece() instanceof Rook) {
                         this.squares[i][j].setPiece(new Rook(this, color, i, j));
                     } else if (squares[i][j].getPiece() instanceof Knight) {

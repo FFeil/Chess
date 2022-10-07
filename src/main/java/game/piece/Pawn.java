@@ -1,6 +1,7 @@
 package game.piece;
 
 import game.board.Board;
+import game.board.Square;
 import game.piece.helper.CanMoveAnywhereHelper;
 
 import static game.piece.Color.BLACK;
@@ -8,13 +9,21 @@ import static game.piece.Color.WHITE;
 
 public class Pawn extends Piece {
 
-    private boolean hasMoved;
+    private boolean justMoved2Squares;
     private int row;
 
     public Pawn(Board board, Color color, int x, int y) {
         super(board, color, x, y);
 
-        hasMoved = false;
+        justMoved2Squares = false;
+
+        row = 2;
+    }
+
+    public Pawn(Board board, Color color, int x, int y, boolean justMoved2Squares) { // copy contructor
+        super(board, color, x, y);
+
+        this.justMoved2Squares = justMoved2Squares;
 
         if (color == BLACK) {
             row = x + 1;
@@ -23,22 +32,23 @@ public class Pawn extends Piece {
         }
     }
 
-    public boolean hasMoved() {
-        return row > 2;
+    public boolean hasJustMoved2Squares() {
+        return justMoved2Squares;
     }
 
     @Override
-    public boolean move(int newX, int newY) {
-        hasMoved = true;
+    public void move(int newX, int newY) {
+        justMoved2Squares = false;
 
         if (getXDistance(newX) == 2 && row == 2) {
             row++;
+            justMoved2Squares = true;
         }
 
         row++;
 
         if (row == 8) {
-            board.setPromotePawn(this);
+            board.setPawnToPromote(this);
         }
 
         // en pasant move
@@ -55,8 +65,6 @@ public class Pawn extends Piece {
 
         changePosition(newX, newY);
         board.resetMoveCount();
-
-        return true;
     }
 
     @Override
@@ -92,12 +100,18 @@ public class Pawn extends Piece {
         if (color == WHITE) {
             backwardsStep*=-1;
         }
-
-        if (board.getSquares()[newX][newY].isEmpty() && row == 5 && !hasMoved
+        System.out.println();
+        System.out.println(1);
+        if (board.getSquares()[newX][newY].isEmpty() && row == 5
                 && getXDistance(newX) == 1 && getYDistance(newY) == 1) {
-            if (board.getSquares()[newX - backwardsStep][newY].containsPieceOfOtherColor(color)) {
-                if (board.getSquares()[newX - backwardsStep][newY].getPiece() instanceof Pawn) {
-                    return ((Pawn) board.getSquares()[newX - backwardsStep][newY].getPiece()).hasMoved();
+            System.out.println(2);
+            Square sidewaysSquare = board.getSquares()[newX - backwardsStep][newY];
+            if (sidewaysSquare.containsPieceOfOtherColor(color)) {
+                System.out.println(3);
+                if (sidewaysSquare.getPiece() instanceof Pawn) {
+                    System.out.println(4);
+                    System.out.println(((Pawn) sidewaysSquare.getPiece()).hasJustMoved2Squares());
+                    return ((Pawn) sidewaysSquare.getPiece()).hasJustMoved2Squares();
                 }
             }
         }

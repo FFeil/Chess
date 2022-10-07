@@ -17,11 +17,9 @@ public class Rook extends Piece {
     }
 
     @Override
-    public boolean move(int newX, int newY) {
+    public void move(int newX, int newY) {
         changePosition(newX, newY);
         moved = true;
-
-        return true;
     }
 
     @Override

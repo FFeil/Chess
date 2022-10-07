@@ -19,15 +19,15 @@ class BishopTest {
 
         Assertions.assertTrue(squares[4][4].getPiece() instanceof Bishop);
 
-        Assertions.assertTrue(squares[4][4].getPiece().move(3, 3));
+        squares[4][4].getPiece().move(3, 3);
         Assertions.assertTrue(squares[4][4].isEmpty());
         Assertions.assertTrue(squares[3][3].getPiece() instanceof Bishop);
 
-        Assertions.assertTrue(squares[3][3].getPiece().move(2, 4));
+        squares[3][3].getPiece().move(2, 4);
         Assertions.assertTrue(squares[3][3].isEmpty());
         Assertions.assertTrue(squares[2][4].getPiece() instanceof Bishop);
 
-        Assertions.assertTrue(squares[2][4].getPiece().move(3, 3));
+        squares[2][4].getPiece().move(3, 3);
         Assertions.assertTrue(squares[2][4].isEmpty());
         Assertions.assertTrue(squares[3][3].getPiece() instanceof Bishop);
     }
@@ -37,7 +37,7 @@ class BishopTest {
         squares[4][4].setPiece(new Bishop(board, WHITE, 4, 4));
         squares[5][5].setPiece(new Bishop(board, BLACK, 5, 5));
 
-        Assertions.assertTrue(squares[4][4].getPiece().move(5, 5));
+        squares[4][4].getPiece().move(5, 5);
         Assertions.assertTrue(squares[5][5].getPiece() instanceof Bishop);
     }
 

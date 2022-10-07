@@ -5,11 +5,11 @@ import game.board.Square;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.ChoiceDialog;
-import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.File;
@@ -210,6 +210,19 @@ public class ChessController {
         ((ImageView) panes[x][y].getChildren().get(0)).setImage(image);
     }
 
+    private int doSingleChoicePopUp() {
+        ArrayList<String> choices = new ArrayList<>(Arrays.asList("Bishop", "Knight", "Rook", "Queen"));
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("Bishop", choices);
+        dialog.initStyle(StageStyle.UNDECORATED);
+        dialog.setHeaderText(null);
+        dialog.setContentText("Choose a piece!");
+
+        Optional<String> result = dialog.showAndWait();
+
+        return result.map(choices::indexOf).orElse(0);
+    }
+
     @FXML
     private void onDragDetected(MouseEvent event) {
         if (active) {
@@ -269,7 +282,13 @@ public class ChessController {
                     });
 
                     if (game.checkEnd()) {
+                        System.out.println(game.checkDraw());
+                        System.out.println(game.checkCheckMate());
                         active = false;
+                    } else {
+                        ((Stage)((Pane) event.getSource()).getScene().getWindow()).setTitle(
+                                "Player: " + game.getCurrentPlayer().toString().charAt(0)
+                                        + game.getCurrentPlayer().toString().substring(1).toLowerCase());
                     }
                 }
             }
@@ -298,18 +317,5 @@ public class ChessController {
         chessPane.setCursor(Cursor.DEFAULT);
         dragImage.setImage(null);
         dragImage.setDisable(true);
-    }
-
-    private int doSingleChoicePopUp() {
-        ArrayList<String> choices = new ArrayList<>(Arrays.asList("Bishop", "Knight", "Rook", "Queen"));
-
-        ChoiceDialog<String> dialog = new ChoiceDialog<>("Bishop", choices);
-        dialog.initStyle(StageStyle.UNDECORATED);
-        dialog.setHeaderText(null);
-        dialog.setContentText("Choose a piece!");
-
-        Optional<String> result = dialog.showAndWait();
-
-        return result.map(choices::indexOf).orElse(0);
     }
 }

@@ -19,11 +19,11 @@ class RookTest {
 
         Assertions.assertTrue(squares[4][4].getPiece() instanceof Rook);
 
-        Assertions.assertTrue(squares[4][4].getPiece().move(4, 0));
+        squares[4][4].getPiece().move(4, 0);
         Assertions.assertTrue(squares[4][4].isEmpty());
         Assertions.assertTrue(squares[4][0].getPiece() instanceof Rook);
 
-        Assertions.assertTrue(squares[4][0].getPiece().move(2, 0));
+        squares[4][0].getPiece().move(2, 0);
         Assertions.assertTrue(squares[4][0].isEmpty());
         Assertions.assertTrue(squares[2][0].getPiece() instanceof Rook);
     }
@@ -34,11 +34,11 @@ class RookTest {
         squares[4][0].setPiece(new Bishop(board, BLACK, 4, 0));
         squares[4][0].setPiece(new Bishop(board, BLACK, 2, 0));
 
-        Assertions.assertTrue(squares[4][4].getPiece().move(4, 0));
+        squares[4][4].getPiece().move(4, 0);
         Assertions.assertTrue(squares[4][0].getPiece() instanceof Rook);
         Assertions.assertTrue(squares[4][4].isEmpty());
 
-        Assertions.assertTrue(squares[4][0].getPiece().move(2, 0));
+        squares[4][0].getPiece().move(2, 0);
         Assertions.assertTrue(squares[2][0].getPiece() instanceof Rook);
         Assertions.assertTrue(squares[4][0].isEmpty());
     }

@@ -16,11 +16,11 @@ class KnightTest {
     @Test
     void move() {
         Assertions.assertTrue(squares[0][1].getPiece() instanceof Knight);
-        Assertions.assertTrue(squares[0][1].getPiece().move(2, 2));
+        squares[0][1].getPiece().move(2, 2);
         Assertions.assertTrue(squares[0][1].isEmpty());
         Assertions.assertTrue(squares[2][2].getPiece() instanceof Knight);
 
-        Assertions.assertTrue(squares[2][2].getPiece().move(0, 1));
+        squares[2][2].getPiece().move(0, 1);
         Assertions.assertTrue(squares[2][2].isEmpty());
         Assertions.assertTrue(squares[0][1].getPiece() instanceof Knight);
     }
@@ -29,7 +29,7 @@ class KnightTest {
     void capture() {
         squares[2][2].setPiece(new Queen(board, WHITE, 2, 2));
 
-        Assertions.assertTrue(squares[0][1].getPiece().move(2, 2));
+        squares[0][1].getPiece().move(2, 2);
         Assertions.assertTrue(squares[0][1].isEmpty());
         Assertions.assertTrue(squares[2][2].getPiece() instanceof Knight);
 

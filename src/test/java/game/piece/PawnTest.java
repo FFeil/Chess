@@ -16,7 +16,7 @@ public class PawnTest {
     @Test
     void move() {
         Assertions.assertTrue(squares[1][1].getPiece() instanceof Pawn);
-        Assertions.assertTrue(squares[1][1].getPiece().move(2, 1));
+        squares[1][1].getPiece().move(2, 1);
         Assertions.assertTrue(squares[1][1].isEmpty());
         Assertions.assertTrue(squares[2][1].getPiece() instanceof Pawn);
     }
@@ -25,7 +25,7 @@ public class PawnTest {
     void capture() {
         squares[2][2].setPiece(new Pawn(board, WHITE, 2, 2));
 
-        Assertions.assertTrue(squares[1][1].getPiece().move(2, 2));
+        squares[1][1].getPiece().move(2, 2);
         Assertions.assertTrue(squares[1][1].isEmpty());
         Assertions.assertTrue(squares[2][2].getPiece() instanceof Pawn);
     }
@@ -54,12 +54,12 @@ public class PawnTest {
     @Test
     void moveBackwards() {
         //Black
-        Assertions.assertTrue(squares[1][1].getPiece().move(3, 1));
+        squares[1][1].getPiece().move(3, 1);
         Assertions.assertTrue(squares[3][1].getPiece() instanceof Pawn);
         Assertions.assertFalse(squares[3][1].getPiece().canMoveTo(2, 1));
 
         // White
-        Assertions.assertTrue(squares[6][1].getPiece().move(4, 1));
+        squares[6][1].getPiece().move(4, 1);
         Assertions.assertTrue(squares[4][1].getPiece() instanceof Pawn);
         Assertions.assertFalse(squares[4][1].getPiece().canMoveTo(3, 1));
     }
@@ -68,13 +68,13 @@ public class PawnTest {
     void move2Forward() {
         //Black
         Assertions.assertTrue(squares[1][1].getPiece() instanceof Pawn);
-        Assertions.assertTrue(squares[1][1].getPiece().move(3, 1));
+        squares[1][1].getPiece().move(3, 1);
         Assertions.assertTrue(squares[1][1].isEmpty());
         Assertions.assertTrue(squares[3][1].getPiece() instanceof Pawn);
 
         // White
         Assertions.assertTrue(squares[6][6].getPiece() instanceof Pawn);
-        Assertions.assertTrue(squares[6][6].getPiece().move(4, 6));
+        squares[6][6].getPiece().move(4, 6);
         Assertions.assertTrue(squares[6][6].isEmpty());
         Assertions.assertTrue(squares[4][6].getPiece() instanceof Pawn);
     }
@@ -97,22 +97,22 @@ public class PawnTest {
     @Test
     public void enPasant() {
         // White
-        Assertions.assertTrue(squares[6][3].getPiece().move(4, 3));
-        Assertions.assertTrue(squares[4][3].getPiece().move(3, 3));
-        Assertions.assertTrue(squares[1][2].getPiece().move(3, 2));
+        squares[6][3].getPiece().move(4, 3);
+        squares[4][3].getPiece().move(3, 3);
+        squares[1][2].getPiece().move(3, 2);
 
-        Assertions.assertTrue(squares[3][3].getPiece().move(2, 2));
+        squares[3][3].getPiece().move(2, 2);
         Assertions.assertTrue(squares[3][3].isEmpty());
         Assertions.assertTrue(squares[2][2].getPiece() instanceof Pawn);
         Assertions.assertEquals(WHITE, squares[2][2].getPiece().getColor());
         Assertions.assertTrue(squares[3][2].isEmpty());
 
         // Black
-        Assertions.assertTrue(squares[1][3].getPiece().move(3, 3));
-        Assertions.assertTrue(squares[3][3].getPiece().move(4, 3));
-        Assertions.assertTrue(squares[6][2].getPiece().move(4, 2));
+        squares[1][3].getPiece().move(3, 3);
+        squares[3][3].getPiece().move(4, 3);
+        squares[6][2].getPiece().move(4, 2);
 
-        Assertions.assertTrue(squares[4][3].getPiece().move(5, 2));
+        squares[4][3].getPiece().move(5, 2);
         Assertions.assertTrue(squares[4][3].isEmpty());
         Assertions.assertTrue(squares[5][2].getPiece() instanceof Pawn);
         Assertions.assertEquals(BLACK, squares[5][2].getPiece().getColor());
@@ -121,12 +121,14 @@ public class PawnTest {
 
     @Test
     public void enPasantFail() {
-        Assertions.assertTrue(squares[6][3].getPiece().move(4, 3));
-        Assertions.assertTrue(squares[4][3].getPiece().move(3, 3));
-        Assertions.assertTrue(squares[1][2].getPiece().move(2, 2));
-        Assertions.assertTrue(squares[2][2].getPiece().move(3, 2));
+        squares[6][3].getPiece().move(4, 3);
+        squares[4][3].getPiece().move(3, 3);
+        squares[1][2].getPiece().move(2, 2);
+        squares[2][2].getPiece().move(3, 2);
 
         Assertions.assertFalse(squares[3][3].getPiece().canMoveTo(2, 2));
+        Assertions.assertFalse(squares[2][2].getPiece() instanceof Pawn);
+
     }
 
     @Test

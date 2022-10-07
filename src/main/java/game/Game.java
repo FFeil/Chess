@@ -30,10 +30,6 @@ public class Game {
         return currentPlayer;
     }
 
-    public Color getNextPlayer() {
-        return nextPlayer;
-    }
-
     public void switchPlayer() {
         Color tmp = nextPlayer;
         nextPlayer = currentPlayer;
@@ -49,14 +45,6 @@ public class Game {
 
             if (currentPlayer == currentPiece.getColor()) {
                 if (moveIsValid(oldX, oldY, newX, newY)) {
-                  // for (int i = 0; i < 8; i++) {
-                  //     for (int j = 0; j < 8; j++) {
-                  //         System.out.print(board.getSquares()[i][j].getPiece() + ", ");
-                  //         }
-                  //     System.out.println();
-                  //     }
-                  // System.out.println();
-
                     currentPiece.move(newX, newY);
                     switchPlayer();
                 }
@@ -71,8 +59,8 @@ public class Game {
     }
 
     public boolean checkCheckMate() {
-        int x = board.getKingCoord(currentPlayer)[0];
-        int y = board.getKingCoord(currentPlayer)[1];
+        int x = board.getKingCoord(nextPlayer)[0];
+        int y = board.getKingCoord(nextPlayer)[1];
 
         return board.pieceCanBeTakenAt(x, y, currentPlayer)
                 && !board.getSquares()[x][y].getPiece().canMoveAnywhere();
@@ -118,14 +106,6 @@ public class Game {
 
         if (currentPiece.canMoveTo(newX, newY)) {
             currentPiece.move(newX, newY);
-
-        //   for (int i = 0; i < 8; i++) {
-        //       for (int j = 0; j < 8; j++) {
-        //           System.out.print(boardCopy.getSquares()[i][j].getPiece() + ", ");
-        //       }
-        //       System.out.println();
-        //   }
-        //   System.out.println();
 
             return boardCopy.kingCantBetaken(currentPlayer);
         }
