@@ -1,7 +1,7 @@
 package game.board;
 
 import game.piece.*;
-import javafx.scene.layout.Pane;
+import game.piece.Color;
 
 import java.util.*;
 
@@ -10,10 +10,10 @@ import static game.piece.Color.WHITE;
 
 public class Board {
 
-    private final Square[][] squares;
+    private Square[][] squares;
     private final Set<Piece> whitePieces;
     private final Set<Piece> blackPieces;
-    private boolean promotePawn;
+    private Pawn pawnToPromote;
     private final int[] whiteKingCoord;
     private final int[] blackKingCoord;
     private final ArrayList<Integer[]> squaresToUpdate;
@@ -21,7 +21,7 @@ public class Board {
     //private int repetitionCount;
 
     public Board() {
-        promotePawn = false;
+        pawnToPromote = null;
         whiteKingCoord = new int[2];
         blackKingCoord = new int[2];
         squaresToUpdate = new ArrayList<>();
@@ -32,22 +32,23 @@ public class Board {
         whitePieces = new HashSet<>();
         blackPieces = new HashSet<>();
 
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                squares[i][j] = new Square();
-            }
-        }
-
+        initiateSquares();
         initiatePieces();
+    }
+
+    public Board(Square[][] squares, int[] whiteKingCoord, int[] blackKingCoord) {
+        this.whiteKingCoord = whiteKingCoord;
+        this.blackKingCoord = blackKingCoord;
+        squaresToUpdate = new ArrayList<>();
+        whitePieces = new HashSet<>();
+        blackPieces = new HashSet<>();
+
+        initiateSquares();
+        copySquares(squares);
     }
 
     public Square[][] getSquares() {
         return squares;
-    }
-
-
-    public boolean isPromotePawn() {
-        return promotePawn;
     }
 
     public Set<Piece> getPieceSet(Color color) {
@@ -66,8 +67,12 @@ public class Board {
         }
     }
 
-    public void setPromotePawn(boolean promotePawn) {
-        this.promotePawn = promotePawn;
+    public void setPromotePawn(Pawn pawnToPromote) {
+        this.pawnToPromote = pawnToPromote;
+    }
+
+    public Pawn getPawnToPromote() {
+        return pawnToPromote;
     }
 
     public int[] getKingCoord(Color color) {
@@ -120,6 +125,14 @@ public class Board {
 //     repetitionCount = 0;
 // }
 
+    private void initiateSquares() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                squares[i][j] = new Square();
+            }
+        }
+    }
+
     private void initiatePieces() {
         // Pawns
         for (int i = 0; i < 8; i++) {
@@ -168,40 +181,19 @@ public class Board {
         }
     }
 
-    public boolean kingHasXray(int oldX, int oldY, int newX, int newY) { // TODO remove
-        Piece movingPiece = squares[oldX][oldY].getPiece();
-        squares[oldX][oldY].removePiece();
-
-        Piece pieceToBeTaken = null;
-        if (!squares[newX][newY].isEmpty()) {
-            pieceToBeTaken = squares[newX][newY].getPiece();
-            getPieceSet(pieceToBeTaken.getColor()).remove(pieceToBeTaken);
-            squares[newX][newY].removePiece();
-        }
-
-        boolean result = kingCanBetaken(movingPiece.getColor());
-
-        squares[oldX][oldY].setPiece(movingPiece);
-        squares[newX][newY].setPiece(pieceToBeTaken);
-        getPieceSet(movingPiece.getOtherColor()).add(pieceToBeTaken);
-        getPieceSet(movingPiece.getOtherColor()).removeIf(Objects::isNull);
-
-        return result;
-    }
-
     public boolean pieceCanBeTakenAt(int x, int y, Color currentPlayer) {
         if (currentPlayer == WHITE) {
-            return blackPieces.stream().anyMatch(piece -> piece.canMoveTo(x, y) && !(piece instanceof King));
+            return blackPieces.stream().anyMatch(piece -> piece.canMoveTo(x, y));
         } else {
-            return whitePieces.stream().anyMatch(piece -> piece.canMoveTo(x, y) && !(piece instanceof King));
+            return whitePieces.stream().anyMatch(piece -> piece.canMoveTo(x, y));
         }
     }
 
-    public boolean kingCanBetaken(Color currentPlayer) {
+    public boolean kingCantBetaken(Color currentPlayer) {
         if (currentPlayer == BLACK) {
-            return pieceCanBeTakenAt(blackKingCoord[0], blackKingCoord[1], BLACK);
+            return !pieceCanBeTakenAt(blackKingCoord[0], blackKingCoord[1], BLACK);
         } else {
-            return pieceCanBeTakenAt(whiteKingCoord[0], whiteKingCoord[1], WHITE);
+            return !pieceCanBeTakenAt(whiteKingCoord[0], whiteKingCoord[1], WHITE);
         }
     }
 
@@ -213,27 +205,62 @@ public class Board {
             for (int j = 0; j < 8; j++) {
                 if (!squares[i][j].isEmpty()) {
                     Color color = squares[i][j].getPiece().getColor();
-                    int x = squares[i][j].getPiece().getX();
-                    int y = squares[i][j].getPiece().getY();
 
                     if (squares[i][j].getPiece() instanceof Pawn) {
-                        this.squares[i][j].setPiece(new Pawn(this, color, x, y));
+                        this.squares[i][j].setPiece(new Pawn(this, color, i, j));
                     } else if (squares[i][j].getPiece() instanceof Rook) {
-                        this.squares[i][j].setPiece(new Rook(this, color, x, y));
+                        this.squares[i][j].setPiece(new Rook(this, color, i, j));
                     } else if (squares[i][j].getPiece() instanceof Knight) {
-                        this.squares[i][j].setPiece(new Knight(this, color, x, y));
+                        this.squares[i][j].setPiece(new Knight(this, color, i, j));
                     } else if (squares[i][j].getPiece() instanceof Bishop) {
-                        this.squares[i][j].setPiece(new Bishop(this, color, x, y));
+                        this.squares[i][j].setPiece(new Bishop(this, color, i, j));
                     } else if (squares[i][j].getPiece() instanceof Queen) {
-                        this.squares[i][j].setPiece(new Queen(this, color, x, y));
+                        this.squares[i][j].setPiece(new Queen(this, color, i, j));
                     } else if (squares[i][j].getPiece() instanceof King) {
-                        this.squares[i][j].setPiece(new King(this, color, x, y));
+                        this.squares[i][j].setPiece(new King(this, color, i, j));
                     }
 
-                    getPieceSet(color).add(squares[i][j].getPiece());
+                    getPieceSet(color).add(this.squares[i][j].getPiece());
                 } else {
                     this.squares[i][j].removePiece();
                 }
+            }
+        }
+    }
+
+    public void promotePiece(int choice) {
+        // 0 = Bishop
+        // 1 = Knight
+        // 2 = Rook
+        // 3 = Queen
+
+        int x = pawnToPromote.getX();
+        int y = pawnToPromote.getY();
+        Color color = pawnToPromote.getColor();
+
+        getPieceSet(color).remove(pawnToPromote);
+        pawnToPromote = null;
+
+        squaresToUpdate.add(new Integer[] {x, y});
+
+        switch (choice) {
+            case 0 -> {
+                squares[x][y].setPiece(new Bishop(this, color, x, y));
+                getPieceSet(color).add(squares[x][y].getPiece());
+            }
+            case 1 -> {
+                squares[x][y].setPiece(new Knight(this, color, x, y));
+                getPieceSet(color).add(squares[x][y].getPiece());
+            }
+            case 2 -> {
+                squares[x][y].setPiece(new Rook(this, color, x, y));
+                getPieceSet(color).add(squares[x][y].getPiece());
+            }
+            case 3 -> {
+                squares[x][y].setPiece(new Queen(this, color, x, y));
+                getPieceSet(color).add(squares[x][y].getPiece());
+            }
+            default -> {
             }
         }
     }

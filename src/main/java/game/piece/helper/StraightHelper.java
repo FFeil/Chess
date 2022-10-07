@@ -39,13 +39,13 @@ public class StraightHelper {
             smaller = newX + 1;
         }
 
-        ArrayList<Square> column = new ArrayList<>();
-
         for (int i = smaller; i < bigger; i++) {
-            column.add(piece.getBoard().getSquares()[i][piece.getY()]);
+            if (!piece.getBoard().getSquares()[i][piece.getY()].isEmpty()) {
+                return false;
+            }
         }
 
-        return column.stream().allMatch(Square::isEmpty);
+        return true;
     }
 
     private static boolean noPiecesHorizontally(Piece piece, int newY) {
@@ -62,7 +62,14 @@ public class StraightHelper {
 
         for (int i = smaller; i < bigger; i++) {
             if (!piece.getBoard().getSquares()[piece.getX()][i].isEmpty()) {
+
                 return false;
+            }
+
+            if (piece instanceof King) {
+                if (piece.getBoard().pieceCanBeTakenAt(piece.getX(), i, piece.getColor())) {
+                    return false;
+                }
             }
         }
 

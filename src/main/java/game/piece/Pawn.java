@@ -8,10 +8,13 @@ import static game.piece.Color.WHITE;
 
 public class Pawn extends Piece {
 
+    private boolean hasMoved;
     private int row;
 
     public Pawn(Board board, Color color, int x, int y) {
         super(board, color, x, y);
+
+        hasMoved = false;
 
         if (color == BLACK) {
             row = x + 1;
@@ -26,6 +29,8 @@ public class Pawn extends Piece {
 
     @Override
     public boolean move(int newX, int newY) {
+        hasMoved = true;
+
         if (getXDistance(newX) == 2 && row == 2) {
             row++;
         }
@@ -33,7 +38,7 @@ public class Pawn extends Piece {
         row++;
 
         if (row == 8) {
-            board.setPromotePawn(true);
+            board.setPromotePawn(this);
         }
 
         // en pasant move
@@ -66,14 +71,15 @@ public class Pawn extends Piece {
     }
 
     private boolean canMove1Forward(int newX, int newY) {
-         return ((newX - x == 1 && color == BLACK ) || (newX - x == -1 && color == WHITE))
+         return ((newX - x == 1 && color == BLACK )
+                 || (newX - x == -1 && color == WHITE))
                  && y == newY && board.getSquares()[newX][newY].isEmpty();
     }
 
     private boolean canMove2Forward(int newX, int newY) {
         return row == 2 && getXDistance(newX) == 2 && y == newY && board.getSquares()[newX][newY].isEmpty()
-                && ((color == BLACK && board.getSquares()[3][y].isEmpty())
-                || ((color == Color.WHITE && board.getSquares()[5][y].isEmpty())));
+                && ((color == BLACK && board.getSquares()[3][y].isEmpty() && board.getSquares()[newX - 1][y].isEmpty())
+                || ((color == WHITE && board.getSquares()[5][y].isEmpty() && board.getSquares()[newX + 1][y].isEmpty())));
     }
 
     private boolean canMoveDiagonal(int newX, int newY) {
@@ -87,7 +93,7 @@ public class Pawn extends Piece {
             backwardsStep*=-1;
         }
 
-        if (board.getSquares()[newX][newY].isEmpty() && row == 5
+        if (board.getSquares()[newX][newY].isEmpty() && row == 5 && !hasMoved
                 && getXDistance(newX) == 1 && getYDistance(newY) == 1) {
             if (board.getSquares()[newX - backwardsStep][newY].containsPieceOfOtherColor(color)) {
                 if (board.getSquares()[newX - backwardsStep][newY].getPiece() instanceof Pawn) {

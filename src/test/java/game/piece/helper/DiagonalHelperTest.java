@@ -3,7 +3,6 @@ package game.piece.helper;
 import game.board.Board;
 import game.board.Square;
 import game.piece.Bishop;
-import game.piece.helper.DiagonalHelper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

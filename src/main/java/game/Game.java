@@ -3,6 +3,7 @@ package game;
 import game.board.Board;
 import game.board.Square;
 import game.piece.*;
+import game.piece.Color;
 
 import java.util.ArrayList;
 
@@ -48,7 +49,6 @@ public class Game {
 
             if (currentPlayer == currentPiece.getColor()) {
                 if (moveIsValid(oldX, oldY, newX, newY)) {
-
                   // for (int i = 0; i < 8; i++) {
                   //     for (int j = 0; j < 8; j++) {
                   //         System.out.print(board.getSquares()[i][j].getPiece() + ", ");
@@ -93,11 +93,11 @@ public class Game {
 
     public boolean checkKingAndMinorPiece() {
         return (board.getPieceSet(WHITE).size() == 1 && board.getPieceSet(BLACK).size() == 2
-                && board.getPieceSet(BLACK).stream().anyMatch(piece -> piece instanceof King)
-                && board.getPieceSet(BLACK).stream().anyMatch(piece -> (piece instanceof Bishop) || (piece instanceof Knight)))
+                    && board.getPieceSet(BLACK).stream().anyMatch(piece -> piece instanceof King)
+                    && board.getPieceSet(BLACK).stream().anyMatch(piece -> (piece instanceof Bishop) || (piece instanceof Knight)))
                 || (board.getPieceSet(BLACK).size() == 1 && board.getPieceSet(WHITE).size() == 2
-                && board.getPieceSet(WHITE).stream().anyMatch(piece -> piece instanceof King)
-                && board.getPieceSet(WHITE).stream().anyMatch(piece -> (piece instanceof Bishop) || (piece instanceof Knight)));
+                    && board.getPieceSet(WHITE).stream().anyMatch(piece -> piece instanceof King)
+                    && board.getPieceSet(WHITE).stream().anyMatch(piece -> (piece instanceof Bishop) || (piece instanceof Knight)));
     }
 
     public boolean check50MoveRule() {
@@ -114,13 +114,20 @@ public class Game {
         boardCopy.setKingCoord(WHITE, board.getKingCoord(WHITE)[0], board.getKingCoord(WHITE)[1]);
         boardCopy.setKingCoord(BLACK, board.getKingCoord(BLACK)[0], board.getKingCoord(BLACK)[1]);
 
-        Square oldSquare = boardCopy.getSquares()[oldX][oldY];
-        Piece currentPiece = oldSquare.getPiece();
+        Piece currentPiece = boardCopy.getSquares()[oldX][oldY].getPiece();
 
         if (currentPiece.canMoveTo(newX, newY)) {
             currentPiece.move(newX, newY);
 
-            return !boardCopy.kingCanBetaken(currentPlayer);
+        //   for (int i = 0; i < 8; i++) {
+        //       for (int j = 0; j < 8; j++) {
+        //           System.out.print(boardCopy.getSquares()[i][j].getPiece() + ", ");
+        //       }
+        //       System.out.println();
+        //   }
+        //   System.out.println();
+
+            return boardCopy.kingCantBetaken(currentPlayer);
         }
 
         return false;

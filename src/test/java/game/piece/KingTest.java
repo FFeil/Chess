@@ -160,30 +160,6 @@ public class KingTest {
     }
 
     @Test
-    void canSee() {
-        squares[4][4].setPiece(new King(board, WHITE, 4, 4));
-        Assertions.assertTrue(((King)squares[4][4].getPiece()).canSee(3, 3));
-        Assertions.assertTrue(((King)squares[4][4].getPiece()).canSee(3, 5));
-        Assertions.assertTrue(((King)squares[4][4].getPiece()).canSee(4, 5));
-        Assertions.assertTrue(((King)squares[4][4].getPiece()).canSee(5, 5));
-        Assertions.assertTrue(((King)squares[4][4].getPiece()).canSee(5, 4));
-        Assertions.assertTrue(((King)squares[4][4].getPiece()).canSee(5, 3));
-        Assertions.assertTrue(((King)squares[4][4].getPiece()).canSee(4, 3));
-    }
-
-    @Test
-    void cantSee() {
-        squares[4][4].setPiece(new King(board, WHITE, 4, 4));
-        Assertions.assertFalse(((King)squares[4][4].getPiece()).canSee(3, 6));
-        Assertions.assertFalse(((King)squares[4][4].getPiece()).canSee(3, 6));
-        Assertions.assertFalse(((King)squares[4][4].getPiece()).canSee(2, 5));
-        Assertions.assertFalse(((King)squares[4][4].getPiece()).canSee(5, 1));
-        Assertions.assertFalse(((King)squares[4][4].getPiece()).canSee(2, 4));
-        Assertions.assertFalse(((King)squares[4][4].getPiece()).canSee(5, 6));
-        Assertions.assertFalse(((King)squares[4][4].getPiece()).canSee(2, 3));
-    }
-
-    @Test
     void cantMoveAnyWhere() {
         Assertions.assertFalse(squares[0][4].getPiece().canMoveAnywhere());
         Assertions.assertFalse(squares[7][4].getPiece().canMoveAnywhere());

@@ -4,14 +4,18 @@ import game.Game;
 import game.board.Square;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
+import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
+import javafx.stage.StageStyle;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 
 public class ChessController {
 
@@ -250,12 +254,17 @@ public class ChessController {
                 if (updateList.isEmpty()) {
                     setImage(oldCoord[0], oldCoord[1], dragImage.getImage());
                 } else {
+                    if (game.getBoard().getPawnToPromote() != null) {
+                        game.getBoard().promotePiece(doSingleChoicePopUp());
+                    }
+
                     updateList.forEach(coord -> {
                         Square square = game.getBoard().getSquares()[coord[0]][coord[1]];
                         if (square.isEmpty()) {
                             setImage(coord[0], coord[1], null);
                         } else {
-                            setImage(coord[0], coord[1], new Image(new File(square.getPiece().getImagePath()).toURI().toString()));
+                            setImage(coord[0], coord[1],
+                                    new Image(new File(square.getPiece().getImagePath()).toURI().toString()));
                         }
                     });
 
@@ -274,12 +283,33 @@ public class ChessController {
     }
 
     @FXML
-    public void onResetButtonPressed() {
+    private void onResetButtonPressed() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                setImage(i, j, null);
+            }
+        }
+
+        game = new Game();
         initImageViews();
+
         active = true;
 
         chessPane.setCursor(Cursor.DEFAULT);
         dragImage.setImage(null);
         dragImage.setDisable(true);
+    }
+
+    private int doSingleChoicePopUp() {
+        ArrayList<String> choices = new ArrayList<>(Arrays.asList("Bishop", "Knight", "Rook", "Queen"));
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("Bishop", choices);
+        dialog.initStyle(StageStyle.UNDECORATED);
+        dialog.setHeaderText(null);
+        dialog.setContentText("Choose a piece!");
+
+        Optional<String> result = dialog.showAndWait();
+
+        return result.map(choices::indexOf).orElse(0);
     }
 }

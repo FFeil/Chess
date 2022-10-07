@@ -4,8 +4,6 @@ import game.board.Board;
 import game.board.Square;
 import game.piece.Pawn;
 import game.piece.Rook;
-import game.piece.helper.DiagonalHelper;
-import game.piece.helper.StraightHelper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

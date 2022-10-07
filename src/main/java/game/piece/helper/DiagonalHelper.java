@@ -36,7 +36,7 @@ public class DiagonalHelper {
 
         int j = piece.getY() + yStep;
         for (int i = piece.getX() + xStep; piece.getXDistance(i) < piece.getXDistance(newX) ; i+=xStep) {
-            if (i * yStep > -1) {
+            if (i > -1) {
                 if (!piece.getBoard().getSquares()[i][j].isEmpty()) {
                     return false;
                 }

@@ -46,22 +46,13 @@ public class King extends Piece {
     public boolean canMoveTo(int newX, int newY) {
         Square square = board.getSquares()[newX][newY];
 
-        return canSee(newX, newY) && !otherKingCanSee(newX, newY)
+        return (getXDistance(newX) + getYDistance(newY) == 1 || (getXDistance(newX) == 1 && getYDistance(newY) == 1))
                 && (square.containsPieceOfOtherColor(color) || square.isEmpty()) || canCastle(newX, newY);
-    }
-
-    public boolean canSee(int newX, int newY) {
-        return getXDistance(newX) + getYDistance(newY) == 1 || (getXDistance(newX) == 1 && getYDistance(newY) == 1);
-    }
-
-    private boolean otherKingCanSee(int newX, int newY) {
-        return ((King) board.getSquares()[board.getKingCoord(getOtherColor())[0]][board.getKingCoord(getOtherColor())[1]]
-                .getPiece()).canSee(newX, newY);
     }
 
     private boolean canCastle(int newX, int newY) {
         if (isSameColorRookAt(newX, newY) && !moved) {
-            return StraightHelper.moveCheck(this, newX, newY) && !board.kingCanBetaken(color);
+            return StraightHelper.moveCheck(this, newX, newY) && board.kingCantBetaken(color);
         }
 
         return false;
