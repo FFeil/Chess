@@ -2,9 +2,11 @@ package game.piece;
 
 import game.board.Board;
 import game.board.Square;
+import game.piece.enums.Color;
+import game.piece.enums.EnumPiece;
 
-import static game.piece.Color.BLACK;
-import static game.piece.Color.WHITE;
+import static game.piece.enums.Color.BLACK;
+import static game.piece.enums.Color.WHITE;
 
 public abstract class Piece {
 
@@ -44,6 +46,8 @@ public abstract class Piece {
     public abstract boolean canMoveAnywhere();
 
     public abstract String getImagePath();
+
+    public abstract EnumPiece getEnumPiece();
 
     protected void changePosition(int newX, int newY) {
         Square[][] squares = board.getSquares();

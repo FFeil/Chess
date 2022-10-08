@@ -1,7 +1,12 @@
 package game.piece;
 
 import game.board.Board;
+import game.piece.enums.Color;
+import game.piece.enums.EnumPiece;
 import game.piece.helper.StraightHelper;
+
+import static game.piece.enums.Color.WHITE;
+import static game.piece.enums.EnumPiece.*;
 
 public class Rook extends Piece {
 
@@ -35,5 +40,13 @@ public class Rook extends Piece {
     @Override
     public String getImagePath() {
         return "src/main/resources/picture/" + color.toString().toLowerCase() + "_" + "rook.png";
+    }
+
+    @Override
+    public EnumPiece getEnumPiece() {
+        if (color == WHITE) {
+            return WHITE_ROOK;
+        }
+        return BLACK_ROOK;
     }
 }

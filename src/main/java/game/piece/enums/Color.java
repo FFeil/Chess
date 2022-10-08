@@ -1,4 +1,4 @@
-package game.piece;
+package game.piece.enums;
 
 public enum Color {
     BLACK,

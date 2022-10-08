@@ -2,8 +2,13 @@ package game.piece;
 
 import game.board.Board;
 import game.board.Square;
+import game.piece.enums.Color;
+import game.piece.enums.EnumPiece;
 import game.piece.helper.CanMoveAnywhereHelper;
 import game.piece.helper.StraightHelper;
+
+import static game.piece.enums.Color.WHITE;
+import static game.piece.enums.EnumPiece.*;
 
 public class King extends Piece {
 
@@ -72,5 +77,13 @@ public class King extends Piece {
     @Override
     public String getImagePath() {
         return "src/main/resources/picture/" + color.toString().toLowerCase() + "_" + "king.png";
+    }
+
+    @Override
+    public EnumPiece getEnumPiece() {
+        if (color == WHITE) {
+            return WHITE_KING;
+        }
+        return BLACK_KING;
     }
 }

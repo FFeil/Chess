@@ -3,18 +3,22 @@ package game;
 import game.board.Board;
 import game.board.Square;
 import game.piece.*;
-import game.piece.Color;
+import game.piece.enums.Color;
+import game.piece.enums.EnumPiece;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
-import static game.piece.Color.BLACK;
-import static game.piece.Color.WHITE;
+import static game.piece.enums.Color.BLACK;
+import static game.piece.enums.Color.WHITE;
 
 public class Game {
 
     private final Board board;
     private Color currentPlayer;
     private Color nextPlayer;
+
 
     public Game() {
         board = new Board();
@@ -44,9 +48,15 @@ public class Game {
             Piece currentPiece = oldSquare.getPiece();
 
             if (currentPlayer == currentPiece.getColor()) {
-                if (moveIsValid(oldX, oldY, newX, newY)) {
+                if (board.moveIsValid(oldX, oldY, newX, newY, currentPlayer)) {
+                    if (currentPiece instanceof Pawn || !board.getSquares()[newX][newY].isEmpty()) {
+                        board.getBoardConfigs().clear();
+                    }
+
                     currentPiece.move(newX, newY);
                     switchPlayer();
+
+                    board.addCurrenBoardConfig();
                 }
             }
         }
@@ -54,13 +64,10 @@ public class Game {
         return board.getSquaresToUpdate();
     }
 
-    public boolean checkEnd() {
-        return checkCheckMate() || checkDraw();
-    }
 
     public boolean checkCheckMate() {
-        int x = board.getKingCoord(nextPlayer)[0];
-        int y = board.getKingCoord(nextPlayer)[1];
+        int x = board.getKingCoord(currentPlayer)[0];
+        int y = board.getKingCoord(currentPlayer)[1];
 
         return board.pieceCanBeTakenAt(x, y, currentPlayer)
                 && !board.getSquares()[x][y].getPiece().canMoveAnywhere();
@@ -93,23 +100,16 @@ public class Game {
     }
 
     public boolean checkRepetition() {
-        return false;
-    }
+        ArrayList<EnumPiece[][]> boardConfigs = board.getBoardConfigs();
 
-    private boolean moveIsValid(int oldX, int oldY, int newX, int newY) {
-        Board boardCopy = new Board();
-        boardCopy.copySquares(board.getSquares());
-        boardCopy.setKingCoord(WHITE, board.getKingCoord(WHITE)[0], board.getKingCoord(WHITE)[1]);
-        boardCopy.setKingCoord(BLACK, board.getKingCoord(BLACK)[0], board.getKingCoord(BLACK)[1]);
-
-        Piece currentPiece = boardCopy.getSquares()[oldX][oldY].getPiece();
-
-        if (currentPiece.canMoveTo(newX, newY)) {
-            currentPiece.move(newX, newY);
-
-            return boardCopy.kingCantBetaken(currentPlayer);
-        }
-
-        return false;
+        return boardConfigs.stream().anyMatch(config -> {
+            int counter = 0;
+            for (EnumPiece[][] currenConfig : boardConfigs) {
+                if (Arrays.deepEquals(currenConfig, config)) {
+                    counter++;
+                }
+            }
+            return counter == 3;
+        });
     }
 }

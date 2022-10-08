@@ -1,7 +1,13 @@
 package game.piece;
 
 import game.board.Board;
+import game.piece.enums.Color;
+import game.piece.enums.EnumPiece;
 import game.piece.helper.DiagonalHelper;
+
+import static game.piece.enums.Color.WHITE;
+import static game.piece.enums.EnumPiece.BLACK_BISHOP;
+import static game.piece.enums.EnumPiece.WHITE_BISHOP;
 
 public class Bishop extends Piece {
 
@@ -27,5 +33,13 @@ public class Bishop extends Piece {
     @Override
     public String getImagePath() {
         return "src/main/resources/picture/" + color.toString().toLowerCase() + "_" + "bishop.png";
+    }
+
+    @Override
+    public EnumPiece getEnumPiece() {
+        if (color == WHITE) {
+            return WHITE_BISHOP;
+        }
+        return BLACK_BISHOP;
     }
 }

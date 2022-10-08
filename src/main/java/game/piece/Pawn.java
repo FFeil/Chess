@@ -2,10 +2,13 @@ package game.piece;
 
 import game.board.Board;
 import game.board.Square;
+import game.piece.enums.Color;
+import game.piece.enums.EnumPiece;
 import game.piece.helper.CanMoveAnywhereHelper;
 
-import static game.piece.Color.BLACK;
-import static game.piece.Color.WHITE;
+import static game.piece.enums.Color.BLACK;
+import static game.piece.enums.Color.WHITE;
+import static game.piece.enums.EnumPiece.*;
 
 public class Pawn extends Piece {
 
@@ -100,17 +103,13 @@ public class Pawn extends Piece {
         if (color == WHITE) {
             backwardsStep*=-1;
         }
-        System.out.println();
-        System.out.println(1);
+
         if (board.getSquares()[newX][newY].isEmpty() && row == 5
                 && getXDistance(newX) == 1 && getYDistance(newY) == 1) {
-            System.out.println(2);
             Square sidewaysSquare = board.getSquares()[newX - backwardsStep][newY];
+
             if (sidewaysSquare.containsPieceOfOtherColor(color)) {
-                System.out.println(3);
                 if (sidewaysSquare.getPiece() instanceof Pawn) {
-                    System.out.println(4);
-                    System.out.println(((Pawn) sidewaysSquare.getPiece()).hasJustMoved2Squares());
                     return ((Pawn) sidewaysSquare.getPiece()).hasJustMoved2Squares();
                 }
             }
@@ -122,5 +121,14 @@ public class Pawn extends Piece {
     @Override
     public String getImagePath() {
         return "src/main/resources/picture/" + color.toString().toLowerCase() + "_" + "pawn.png";
+    }
+
+
+    @Override
+    public EnumPiece getEnumPiece() {
+        if (color == WHITE) {
+            return WHITE_PAWN;
+        }
+        return BLACK_PAWN;
     }
 }

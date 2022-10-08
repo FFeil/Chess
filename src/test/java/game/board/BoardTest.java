@@ -6,10 +6,10 @@ import game.piece.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static game.piece.Color.BLACK;
-import static game.piece.Color.WHITE;
+import static game.piece.enums.Color.BLACK;
+import static game.piece.enums.Color.WHITE;
 
-public class BoardTest {
+class BoardTest {
 
     private final Board board = new Board();
     private final Square[][] squares = board.getSquares();

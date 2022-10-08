@@ -5,8 +5,8 @@ import game.board.Square;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static game.piece.Color.BLACK;
-import static game.piece.Color.WHITE;
+import static game.piece.enums.Color.BLACK;
+import static game.piece.enums.Color.WHITE;
 
 class RookTest {
 

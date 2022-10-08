@@ -281,13 +281,15 @@ public class ChessController {
                         }
                     });
 
-                    if (game.checkEnd()) {
-                        System.out.println(game.checkDraw());
-                        System.out.println(game.checkCheckMate());
+                    Stage stage = (Stage) ((Pane) event.getSource()).getScene().getWindow();
+                    if (game.checkCheckMate()) {
                         active = false;
+                        stage.setTitle("Player white wins!");
+                    } else if (game.checkDraw()) {
+                        active = false;
+                        stage.setTitle("It's a draw");
                     } else {
-                        ((Stage)((Pane) event.getSource()).getScene().getWindow()).setTitle(
-                                "Player: " + game.getCurrentPlayer().toString().charAt(0)
+                        stage.setTitle("Player: " + game.getCurrentPlayer().toString().charAt(0)
                                         + game.getCurrentPlayer().toString().substring(1).toLowerCase());
                     }
                 }

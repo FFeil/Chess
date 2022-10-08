@@ -2,7 +2,12 @@ package game.piece;
 
 import game.board.Board;
 import game.board.Square;
+import game.piece.enums.Color;
+import game.piece.enums.EnumPiece;
 import game.piece.helper.CanMoveAnywhereHelper;
+
+import static game.piece.enums.Color.WHITE;
+import static game.piece.enums.EnumPiece.*;
 
 public class Knight extends Piece {
 
@@ -32,5 +37,13 @@ public class Knight extends Piece {
     @Override
     public String getImagePath() {
         return "src/main/resources/picture/" + color.toString().toLowerCase() + "_" + "knight.png";
+    }
+
+    @Override
+    public EnumPiece getEnumPiece() {
+        if (color == WHITE) {
+            return WHITE_KING;
+        }
+        return BLACK_KNIGHT;
     }
 }

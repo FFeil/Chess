@@ -1,6 +1,6 @@
 package game.board;
 
-import game.piece.Color;
+import game.piece.enums.Color;
 import game.piece.Piece;
 
 public class Square {

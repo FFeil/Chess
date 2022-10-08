@@ -5,10 +5,10 @@ import game.board.Square;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static game.piece.Color.BLACK;
-import static game.piece.Color.WHITE;
+import static game.piece.enums.Color.BLACK;
+import static game.piece.enums.Color.WHITE;
 
-public class KingTest {
+class KingTest {
 
     private final Board board = new Board();
     private final Square[][] squares = board.getSquares();

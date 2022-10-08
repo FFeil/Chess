@@ -6,7 +6,7 @@ import game.board.Square;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class PieceTest {
+class EnumPieceTest {
 
     private final Board board = new Board();
     private final Square[][] squares = board.getSquares();

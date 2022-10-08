@@ -1,12 +1,14 @@
 package game.board;
 
 import game.piece.*;
-import game.piece.Color;
+import game.piece.enums.Color;
+import game.piece.enums.EnumPiece;
 
 import java.util.*;
 
-import static game.piece.Color.BLACK;
-import static game.piece.Color.WHITE;
+import static game.piece.enums.Color.BLACK;
+import static game.piece.enums.Color.WHITE;
+import static game.piece.enums.EnumPiece.EMPTY;
 
 public class Board {
 
@@ -18,7 +20,7 @@ public class Board {
     private final int[] blackKingCoord;
     private final ArrayList<Integer[]> squaresToUpdate;
     private int moveCount; // 50 move rule
-    //private int repetitionCount;
+    private ArrayList<EnumPiece[][]> boardConfigs;
 
     public Board() {
         pawnToPromote = null;
@@ -26,7 +28,7 @@ public class Board {
         blackKingCoord = new int[2];
         squaresToUpdate = new ArrayList<>();
         moveCount = 0;
-        //repetitionCount = 0;
+        boardConfigs = new ArrayList<>();
 
         squares = new Square[8][8];
         whitePieces = new HashSet<>();
@@ -36,7 +38,7 @@ public class Board {
         initiatePieces();
     }
 
-    public Board(Square[][] squares, int[] whiteKingCoord, int[] blackKingCoord) {
+    public Board(Square[][] squares, int[] whiteKingCoord, int[] blackKingCoord) { // copy constructor
         this.whiteKingCoord = whiteKingCoord;
         this.blackKingCoord = blackKingCoord;
         squaresToUpdate = new ArrayList<>();
@@ -105,17 +107,24 @@ public class Board {
         moveCount = 0;
     }
 
-// public int getRepetitionCount() {
-//     return repetitionCount;
-// }
+    public ArrayList<EnumPiece[][]> getBoardConfigs() {
+        return boardConfigs;
+    }
 
-// public void incrRepetitionCount() {
-//     repetitionCount++;
-// }
+    public void addCurrenBoardConfig() {
+        EnumPiece[][] newConfig = new EnumPiece[8][8];
 
-// public void resetRepetitionCount() {
-//     repetitionCount = 0;
-// }
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (squares[i][j].isEmpty()) {
+                    newConfig[i][j] = EMPTY;
+                } else {
+                    newConfig[i][j] = squares[i][j].getPiece().getEnumPiece();
+                }
+            }
+        }
+        boardConfigs.add(newConfig);
+    }
 
     private void initiateSquares() {
         for (int i = 0; i < 8; i++) {
@@ -219,6 +228,23 @@ public class Board {
                 }
             }
         }
+    }
+
+    public boolean moveIsValid(int oldX, int oldY, int newX, int newY, Color currentPlayer) {
+        Board boardCopy = new Board();
+        boardCopy.copySquares(squares);
+        boardCopy.setKingCoord(WHITE, whiteKingCoord[0], whiteKingCoord[1]);
+        boardCopy.setKingCoord(BLACK, blackKingCoord[0], blackKingCoord[1]);
+
+        Piece currentPiece = boardCopy.getSquares()[oldX][oldY].getPiece();
+
+        if (currentPiece.canMoveTo(newX, newY)) {
+            currentPiece.move(newX, newY);
+
+            return boardCopy.kingCantBetaken(currentPlayer);
+        }
+
+        return false;
     }
 
     public void promotePiece(int choice) {
