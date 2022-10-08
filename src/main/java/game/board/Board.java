@@ -12,7 +12,7 @@ import static game.piece.enums.EnumPiece.EMPTY;
 
 public class Board {
 
-    private Square[][] squares;
+    private final Square[][] squares;
     private final Set<Piece> whitePieces;
     private final Set<Piece> blackPieces;
     private Pawn pawnToPromote;
@@ -45,6 +45,7 @@ public class Board {
         whitePieces = new HashSet<>();
         blackPieces = new HashSet<>();
 
+        this.squares = new Square[8][8];
         initiateSquares();
         copySquares(squares);
     }
@@ -198,7 +199,7 @@ public class Board {
         }
     }
 
-    public void copySquares(Square[][] squares) {
+    private void copySquares(Square[][] squares) {
         whitePieces.clear();
         blackPieces.clear();
 
@@ -230,7 +231,7 @@ public class Board {
         }
     }
 
-    public boolean moveIsValid(int oldX, int oldY, int newX, int newY, Color currentPlayer) {
+    public boolean moveIsValid(int oldX, int oldY, int newX, int newY) {
         Board boardCopy = new Board();
         boardCopy.copySquares(squares);
         boardCopy.setKingCoord(WHITE, whiteKingCoord[0], whiteKingCoord[1]);
@@ -241,7 +242,7 @@ public class Board {
         if (currentPiece.canMoveTo(newX, newY)) {
             currentPiece.move(newX, newY);
 
-            return boardCopy.kingCantBetaken(currentPlayer);
+            return boardCopy.kingCantBetaken(currentPiece.getColor());
         }
 
         return false;

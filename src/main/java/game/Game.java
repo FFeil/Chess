@@ -8,7 +8,6 @@ import game.piece.enums.EnumPiece;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 import static game.piece.enums.Color.BLACK;
 import static game.piece.enums.Color.WHITE;
@@ -48,7 +47,7 @@ public class Game {
             Piece currentPiece = oldSquare.getPiece();
 
             if (currentPlayer == currentPiece.getColor()) {
-                if (board.moveIsValid(oldX, oldY, newX, newY, currentPlayer)) {
+                if (board.moveIsValid(oldX, oldY, newX, newY)) {
                     if (currentPiece instanceof Pawn || !board.getSquares()[newX][newY].isEmpty()) {
                         board.getBoardConfigs().clear();
                     }
@@ -63,7 +62,6 @@ public class Game {
 
         return board.getSquaresToUpdate();
     }
-
 
     public boolean checkCheckMate() {
         int x = board.getKingCoord(currentPlayer)[0];

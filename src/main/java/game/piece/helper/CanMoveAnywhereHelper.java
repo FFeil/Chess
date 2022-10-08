@@ -15,7 +15,7 @@ public class CanMoveAnywhereHelper {
                     if (piece.canMoveTo(x + i, y + j)) {
                         if (piece instanceof King ) {
                             if (piece.getBoard().
-                                    moveIsValid(x, y, x + i, y + j, piece.getColor())) {
+                                    moveIsValid(x, y, x + i, y + j)) {
                                 return true;
                             }
                         } else {
