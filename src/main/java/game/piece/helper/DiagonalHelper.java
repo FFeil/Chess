@@ -67,6 +67,7 @@ public class DiagonalHelper {
             }
             j--;
         }
+
         return false;
     }
 }

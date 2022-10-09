@@ -129,6 +129,7 @@ public class Pawn extends Piece {
         if (color == WHITE) {
             return WHITE_PAWN;
         }
+
         return BLACK_PAWN;
     }
 }

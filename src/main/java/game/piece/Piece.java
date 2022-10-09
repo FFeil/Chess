@@ -5,9 +5,6 @@ import game.board.Square;
 import game.piece.enums.Color;
 import game.piece.enums.EnumPiece;
 
-import static game.piece.enums.Color.BLACK;
-import static game.piece.enums.Color.WHITE;
-
 public abstract class Piece {
 
     protected Board board;

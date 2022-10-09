@@ -14,8 +14,7 @@ public class CanMoveAnywhereHelper {
                 if (x + i > -1 && x + i < 8 && y + j > -1 && y + j < 8) {
                     if (piece.canMoveTo(x + i, y + j)) {
                         if (piece instanceof King ) {
-                            if (piece.getBoard().
-                                    moveIsValid(x, y, x + i, y + j)) {
+                            if (piece.getBoard().moveIsValid(x, y, x + i, y + j)) {
                                 return true;
                             }
                         } else {

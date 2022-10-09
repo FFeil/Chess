@@ -40,6 +40,7 @@ public class Bishop extends Piece {
         if (color == WHITE) {
             return WHITE_BISHOP;
         }
+
         return BLACK_BISHOP;
     }
 }

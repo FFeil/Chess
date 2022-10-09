@@ -20,7 +20,7 @@ public class Board {
     private final int[] blackKingCoord;
     private final ArrayList<Integer[]> squaresToUpdate;
     private int moveCount; // 50 move rule
-    private ArrayList<EnumPiece[][]> boardConfigs;
+    private ArrayList<EnumPiece[][]> boardConfigs; // Repetition rule
 
     public Board() {
         pawnToPromote = null;

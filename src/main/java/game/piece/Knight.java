@@ -44,6 +44,7 @@ public class Knight extends Piece {
         if (color == WHITE) {
             return WHITE_KING;
         }
+
         return BLACK_KNIGHT;
     }
 }

@@ -47,6 +47,7 @@ public class Rook extends Piece {
         if (color == WHITE) {
             return WHITE_ROOK;
         }
+
         return BLACK_ROOK;
     }
 }

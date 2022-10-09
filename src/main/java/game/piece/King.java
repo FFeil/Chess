@@ -84,6 +84,7 @@ public class King extends Piece {
         if (color == WHITE) {
             return WHITE_KING;
         }
+
         return BLACK_KING;
     }
 }

@@ -284,7 +284,7 @@ public class ChessController {
                     Stage stage = (Stage) ((Pane) event.getSource()).getScene().getWindow();
                     if (game.checkCheckMate()) {
                         active = false;
-                        stage.setTitle("Player "+ game.getNextPlayer().toString().toLowerCase() +" wins!");
+                        stage.setTitle("Player " + game.getNextPlayer().toString().toLowerCase() + " wins!");
                     } else if (game.checkDraw()) {
                         active = false;
                         stage.setTitle("It's a draw");

@@ -40,6 +40,7 @@ public class Queen extends Piece {
         if (color == WHITE) {
             return WHITE_QUEEN;
         }
+
         return BLACK_QUEEN;
     }
 }

@@ -111,6 +111,7 @@ public class Game {
                     counter++;
                 }
             }
+
             return counter == 3;
         });
     }
