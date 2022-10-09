@@ -5,6 +5,8 @@ import game.board.Square;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static game.piece.enums.Color.BLACK;
 import static game.piece.enums.Color.WHITE;
 
@@ -101,22 +103,32 @@ class PawnTest {
         squares[4][3].getPiece().move(3, 3);
         squares[1][2].getPiece().move(3, 2);
 
+        board.getSquaresToUpdate().clear();
         squares[3][3].getPiece().move(2, 2);
+
         Assertions.assertTrue(squares[3][3].isEmpty());
         Assertions.assertTrue(squares[2][2].getPiece() instanceof Pawn);
         Assertions.assertEquals(WHITE, squares[2][2].getPiece().getColor());
         Assertions.assertTrue(squares[3][2].isEmpty());
+        Assertions.assertTrue(board.getSquaresToUpdate().stream().anyMatch(x -> Arrays.equals(x, new Integer[]{3, 3})));
+        Assertions.assertTrue(board.getSquaresToUpdate().stream().anyMatch(x -> Arrays.equals(x, new Integer[]{2, 2})));
+        Assertions.assertTrue(board.getSquaresToUpdate().stream().anyMatch(x -> Arrays.equals(x, new Integer[]{3, 2})));
 
         // Black
         squares[1][3].getPiece().move(3, 3);
         squares[3][3].getPiece().move(4, 3);
         squares[6][2].getPiece().move(4, 2);
 
+        board.getSquaresToUpdate().clear();
         squares[4][3].getPiece().move(5, 2);
+
         Assertions.assertTrue(squares[4][3].isEmpty());
         Assertions.assertTrue(squares[5][2].getPiece() instanceof Pawn);
         Assertions.assertEquals(BLACK, squares[5][2].getPiece().getColor());
         Assertions.assertTrue(squares[4][2].isEmpty());
+        Assertions.assertTrue(board.getSquaresToUpdate().stream().anyMatch(x -> Arrays.equals(x, new Integer[]{4, 3})));
+        Assertions.assertTrue(board.getSquaresToUpdate().stream().anyMatch(x -> Arrays.equals(x, new Integer[]{5, 2})));
+        Assertions.assertTrue(board.getSquaresToUpdate().stream().anyMatch(x -> Arrays.equals(x, new Integer[]{4, 2})));
     }
 
     @Test

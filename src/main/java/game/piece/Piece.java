@@ -73,12 +73,4 @@ public abstract class Piece {
     public int getYDistance(int newY) {
         return Math.abs(y - newY);
     }
-
-    public Color getOtherColor() {
-        if (color == WHITE) {
-            return BLACK;
-        }
-
-        return WHITE;
-    }
 }

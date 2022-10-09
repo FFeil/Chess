@@ -5,6 +5,8 @@ import game.board.Square;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static game.piece.enums.Color.BLACK;
 import static game.piece.enums.Color.WHITE;
 
@@ -101,13 +103,25 @@ class KingTest {
         squares[0][0].setPiece(new Rook(board, BLACK, 0, 0));
         squares[7][7].setPiece(new Rook(board, WHITE, 7, 7));
 
+        board.getSquaresToUpdate().clear();
         squares[0][4].getPiece().move(0, 0);
+
         Assertions.assertTrue(squares[0][2].getPiece() instanceof King);
         Assertions.assertTrue(squares[0][3].getPiece() instanceof Rook);
+        Assertions.assertTrue(board.getSquaresToUpdate().stream().anyMatch(x -> Arrays.equals(x, new Integer[]{0, 4})));
+        Assertions.assertTrue(board.getSquaresToUpdate().stream().anyMatch(x -> Arrays.equals(x, new Integer[]{0, 0})));
+        Assertions.assertTrue(board.getSquaresToUpdate().stream().anyMatch(x -> Arrays.equals(x, new Integer[]{0, 2})));
+        Assertions.assertTrue(board.getSquaresToUpdate().stream().anyMatch(x -> Arrays.equals(x, new Integer[]{0, 3})));
 
+        board.getSquaresToUpdate().clear();
         squares[7][4].getPiece().move(7, 7);
+
         Assertions.assertTrue(squares[7][6].getPiece() instanceof King);
         Assertions.assertTrue(squares[7][5].getPiece() instanceof Rook);
+        Assertions.assertTrue(board.getSquaresToUpdate().stream().anyMatch(x -> Arrays.equals(x, new Integer[]{7, 4})));
+        Assertions.assertTrue(board.getSquaresToUpdate().stream().anyMatch(x -> Arrays.equals(x, new Integer[]{7, 7})));
+        Assertions.assertTrue(board.getSquaresToUpdate().stream().anyMatch(x -> Arrays.equals(x, new Integer[]{7, 6})));
+        Assertions.assertTrue(board.getSquaresToUpdate().stream().anyMatch(x -> Arrays.equals(x, new Integer[]{7, 5})));
     }
 
     @Test

@@ -84,7 +84,7 @@ public class Game {
                 || checkKingAndMinorPiece();
     }
 
-    public boolean checkKingAndMinorPiece() {
+    private boolean checkKingAndMinorPiece() {
         return (board.getPieceSet(WHITE).size() == 1 && board.getPieceSet(BLACK).size() == 2
                     && board.getPieceSet(BLACK).stream().anyMatch(piece -> piece instanceof King)
                     && board.getPieceSet(BLACK).stream().anyMatch(piece -> (piece instanceof Bishop) || (piece instanceof Knight)))
