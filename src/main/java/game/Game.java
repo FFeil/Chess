@@ -33,6 +33,10 @@ public class Game {
         return currentPlayer;
     }
 
+    public Color getNextPlayer() {
+        return nextPlayer;
+    }
+
     public void switchPlayer() {
         Color tmp = nextPlayer;
         nextPlayer = currentPlayer;
