@@ -6,10 +6,9 @@ import game.piece.Piece;
 import game.piece.Queen;
 import game.piece.Rook;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class StraightHelper {
+
+    private StraightHelper() {}
 
     public static boolean moveCheck(Piece piece, int newX, int newY) {
         if (piece instanceof Queen || piece instanceof Rook || piece instanceof King) {
@@ -66,10 +65,9 @@ public class StraightHelper {
                 return false;
             }
 
-            if (piece instanceof King) {
-                if (piece.getBoard().pieceCanBeTakenAt(piece.getX(), i, piece.getColor())) {
-                    return false;
-                }
+            if ((piece instanceof King)
+                    && piece.getBoard().pieceCanBeTakenAt(piece.getX(), i, piece.getColor())) {
+                return false;
             }
         }
 
@@ -78,13 +76,13 @@ public class StraightHelper {
 
     public static boolean canMoveAnywhere(Piece piece) {
         for (int i = 0; i < 8; i++) {
-            if (piece.canMoveTo(i, piece.getY())) {
+            if (piece.getBoard().moveIsValid(piece.getX(), piece.getY(), i, piece.getY())) {
                 return true;
             }
         }
 
         for (int i = 0; i < 8; i++) {
-            if (piece.canMoveTo(piece.getX(), i)) {
+            if (piece.getBoard().moveIsValid(piece.getX(), piece.getY(), piece.getX(), i)) {
                 return true;
             }
         }

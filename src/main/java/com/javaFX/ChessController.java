@@ -225,7 +225,7 @@ public class ChessController {
 
     @FXML
     private void onDragDetected(MouseEvent event) {
-        if (active) {
+        if (active && event.getButton() == MouseButton.PRIMARY) {
             Pane sourcePane = ((Pane) event.getSource());
 
             oldCoord = getCoord(sourcePane);
@@ -248,7 +248,7 @@ public class ChessController {
 
     @FXML
     private void onMouseDragged(MouseEvent event) {
-        if (active) {
+        if (active && event.getButton() == MouseButton.PRIMARY) {
             dragImage.setX(event.getSceneX() - 37);
             dragImage.setY(event.getSceneY() - 20);
         }
@@ -256,13 +256,13 @@ public class ChessController {
 
     @FXML
     private void onMouseDragReleased(MouseEvent event) {
-        if (active) {
+        if (active && event.getButton() == MouseButton.PRIMARY) {
             if (((ImageView) event.getTarget()).getParent() instanceof Pane) {
                 int[] newCoord = getCoord((Pane) ((ImageView) event.getTarget()).getParent());
 
                 assert newCoord != null;
 
-                ArrayList<Integer[]> updateList = game.makeMove(oldCoord[0], oldCoord[1], newCoord[0], newCoord[1]);
+                ArrayList<Integer[]> updateList = (ArrayList<Integer[]>) game.makeMove(oldCoord[0], oldCoord[1], newCoord[0], newCoord[1]);
 
                 if (updateList.isEmpty()) {
                     setImage(oldCoord[0], oldCoord[1], dragImage.getImage());

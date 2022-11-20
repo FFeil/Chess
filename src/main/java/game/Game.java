@@ -8,6 +8,7 @@ import game.piece.enums.EnumPiece;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static game.piece.enums.Color.BLACK;
 import static game.piece.enums.Color.WHITE;
@@ -43,24 +44,23 @@ public class Game {
         currentPlayer = tmp;
     }
 
-    public ArrayList<Integer[]> makeMove(int oldX, int oldY, int newX, int newY) {
+    public List<Integer[]> makeMove(int oldX, int oldY, int newX, int newY) {
         board.getSquaresToUpdate().clear();
         Square oldSquare = board.getSquares()[oldX][oldY];
 
         if (!oldSquare.isEmpty()) {
             Piece currentPiece = oldSquare.getPiece();
 
-            if (currentPlayer == currentPiece.getColor()) {
-                if (board.moveIsValid(oldX, oldY, newX, newY)) {
-                    if (currentPiece instanceof Pawn || !board.getSquares()[newX][newY].isEmpty()) {
-                        board.getBoardConfigs().clear();
-                    }
-
-                    currentPiece.move(newX, newY);
-                    switchPlayer();
-
-                    board.addCurrenBoardConfig();
+            if ((currentPlayer == currentPiece.getColor())
+                    && board.moveIsValid(oldX, oldY, newX, newY)) {
+                if (currentPiece instanceof Pawn || !board.getSquares()[newX][newY].isEmpty()) {
+                    board.getBoardConfigs().clear();
                 }
+
+                currentPiece.move(newX, newY);
+                switchPlayer();
+
+                board.addCurrenBoardConfig();
             }
         }
 
@@ -72,7 +72,8 @@ public class Game {
         int y = board.getKingCoord(currentPlayer)[1];
 
         return board.pieceCanBeTakenAt(x, y, currentPlayer)
-                && !board.getSquares()[x][y].getPiece().canMoveAnywhere();
+                && !board.getSquares()[x][y].getPiece().canMoveAnywhere()
+                && board.getPieceSet(currentPlayer).stream().noneMatch(Piece::canMoveAnywhere);
     }
 
     public boolean checkDraw() {
@@ -84,7 +85,7 @@ public class Game {
     }
 
     public boolean checkInsufficientMaterial() {
-        return (board.getPieceSet(WHITE).size() == 1 || board.getPieceSet(BLACK).size() == 1) // only King left
+        return (board.getPieceSet(WHITE).size() == 1 || board.getPieceSet(BLACK).size() == 1) // only king left
                 || checkKingAndMinorPiece();
     }
 
@@ -102,7 +103,7 @@ public class Game {
     }
 
     public boolean checkRepetition() {
-        ArrayList<EnumPiece[][]> boardConfigs = board.getBoardConfigs();
+        ArrayList<EnumPiece[][]> boardConfigs = (ArrayList<EnumPiece[][]>) board.getBoardConfigs();
 
         return boardConfigs.stream().anyMatch(config -> {
             int counter = 0;

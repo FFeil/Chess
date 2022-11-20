@@ -94,7 +94,10 @@ class QueenTest {
 
     @Test
     void canMoveSomeWhere() {
-        squares[0][4].removePiece();
-        squares[6][2].removePiece();
+        squares[1][2].removePiece();
+        squares[6][3].removePiece();
+
+        Assertions.assertTrue(squares[0][3].getPiece().canMoveAnywhere());
+        Assertions.assertTrue(squares[7][3].getPiece().canMoveAnywhere());
     }
 }

@@ -32,14 +32,14 @@ class GameTest {
     void makeMove() {
         Assertions.assertEquals(WHITE, game.getCurrentPlayer());
 
-        ArrayList<Integer[]> squaresToUpdate = game.makeMove(6, 1, 5 ,1);
+        ArrayList<Integer[]> squaresToUpdate = (ArrayList<Integer[]>) game.makeMove(6, 1, 5 ,1);
 
         Assertions.assertEquals(2, squaresToUpdate.size());
         Assertions.assertTrue(squaresToUpdate.stream().anyMatch(x -> Arrays.equals(x, new Integer[]{6, 1})));
         Assertions.assertTrue(squaresToUpdate.stream().anyMatch(x -> Arrays.equals(x, new Integer[]{5, 1})));
         Assertions.assertEquals(BLACK, game.getCurrentPlayer());
 
-         squaresToUpdate = game.makeMove(1, 1, 2 ,1);
+         squaresToUpdate = (ArrayList<Integer[]>) game.makeMove(1, 1, 2 ,1);
 
         Assertions.assertEquals(2, squaresToUpdate.size());
         Assertions.assertTrue(squaresToUpdate.stream().anyMatch(x -> Arrays.equals(x, new Integer[]{1, 1})));
@@ -69,6 +69,7 @@ class GameTest {
         board.getPieceSet(WHITE).add(squares[6][7].getPiece());
 
         game.makeMove(6, 7, 6, 0);
+
         Assertions.assertTrue(game.checkCheckMate());
     }
 

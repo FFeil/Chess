@@ -32,7 +32,7 @@ public class King extends Piece {
                 board.getSquaresToUpdate().add(new Integer[]{newX, newY, x, y - 1});
                 changePosition(x, y - 2);
             }
-            board.decrMoveCount();
+            board.resetMoveCount();
         } else {
             changePosition(newX, newY);
         }
@@ -60,10 +60,9 @@ public class King extends Piece {
     private boolean isSameColorRookAt(int newX, int newY) {
         Square square = board.getSquares()[newX][newY];
 
-        if (!square.isEmpty()) {
-            if (square.getPiece() instanceof Rook && square.getPiece().getColor() == color) {
-                return (!((Rook) square.getPiece()).hasMoved());
-            }
+        if ((!square.isEmpty())
+                && square.getPiece() instanceof Rook && square.getPiece().getColor() == color) {
+            return (!((Rook) square.getPiece()).hasMoved());
         }
 
         return false;

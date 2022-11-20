@@ -88,7 +88,7 @@ public class Board {
         }
     }
 
-    public ArrayList<Integer[]> getSquaresToUpdate() {
+    public List<Integer[]> getSquaresToUpdate() {
         return squaresToUpdate;
     }
 
@@ -100,15 +100,11 @@ public class Board {
         moveCount++;
     }
 
-    public void decrMoveCount() {
-        moveCount--;
-    }
-
     public void resetMoveCount() {
         moveCount = 0;
     }
 
-    public ArrayList<EnumPiece[][]> getBoardConfigs() {
+    public List<EnumPiece[][]> getBoardConfigs() {
         return boardConfigs;
     }
 

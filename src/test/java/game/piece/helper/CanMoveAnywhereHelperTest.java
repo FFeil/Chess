@@ -15,7 +15,7 @@ class CanMoveAnywhereHelperTest {
     private final Square[][] squares = board.getSquares();
 
     @Test
-    void cantMoveAnyWhere() {
+    void cantMoveAnywhere() {
         squares[2][1].setPiece(new Pawn(board, WHITE, 2, 1));
         squares[5][1].setPiece(new Pawn(board, WHITE, 5, 1));
         squares[2][0].setPiece(new Pawn(board, BLACK, 2, 0));
@@ -31,7 +31,7 @@ class CanMoveAnywhereHelperTest {
     }
 
     @Test
-    void canMoveSomeWhere() {
+    void canMoveSomewhere() {
         squares[0][3].removePiece();
         squares[6][4].removePiece();
 

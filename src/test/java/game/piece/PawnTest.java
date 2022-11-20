@@ -92,12 +92,12 @@ class PawnTest {
     }
 
     @Test
-    public void dontMove() {
+    void dontMove() {
         Assertions.assertFalse(squares[1][1].getPiece().canMoveTo(1, 1));
     }
 
     @Test
-    public void enPasant() {
+    void enPasant() {
         // White
         squares[6][3].getPiece().move(4, 3);
         squares[4][3].getPiece().move(3, 3);
@@ -132,7 +132,7 @@ class PawnTest {
     }
 
     @Test
-    public void enPasantFail() {
+    void enPasantFail() {
         squares[6][3].getPiece().move(4, 3);
         squares[4][3].getPiece().move(3, 3);
         squares[1][2].getPiece().move(2, 2);

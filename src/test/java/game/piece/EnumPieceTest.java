@@ -12,7 +12,7 @@ class EnumPieceTest {
     private final Square[][] squares = board.getSquares();
 
     @Test
-    public void changePosition() {
+    void changePosition() {
         Assertions.assertFalse(squares[1][2].isEmpty());
         Assertions.assertEquals(1, squares[1][2].getPiece().getX());
         Assertions.assertEquals(2, squares[1][2].getPiece().getY());

@@ -108,10 +108,9 @@ public class Pawn extends Piece {
                 && getXDistance(newX) == 1 && getYDistance(newY) == 1) {
             Square sidewaysSquare = board.getSquares()[newX - backwardsStep][newY];
 
-            if (sidewaysSquare.containsPieceOfOtherColor(color)) {
-                if (sidewaysSquare.getPiece() instanceof Pawn) {
-                    return ((Pawn) sidewaysSquare.getPiece()).hasJustMoved2Squares();
-                }
+            if ((sidewaysSquare.containsPieceOfOtherColor(color))
+                    && sidewaysSquare.getPiece() instanceof Pawn) {
+                return ((Pawn) sidewaysSquare.getPiece()).hasJustMoved2Squares();
             }
         }
 

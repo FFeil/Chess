@@ -44,7 +44,7 @@ class KnightTest {
     }
 
     @Test
-    public void dontMove() {
+    void dontMove() {
         Assertions.assertFalse(squares[0][1].getPiece().canMoveTo(0, 1));
     }
 }

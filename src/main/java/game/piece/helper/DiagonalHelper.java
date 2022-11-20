@@ -7,6 +7,8 @@ import game.piece.Queen;
 
 public class DiagonalHelper {
 
+    private DiagonalHelper() {}
+
     public static boolean moveCheck(Piece piece, int newX, int newY) {
         if (piece instanceof Queen || piece instanceof Bishop) {
             Square square = piece.getBoard().getSquares()[newX][newY];
@@ -36,10 +38,8 @@ public class DiagonalHelper {
 
         int j = piece.getY() + yStep;
         for (int i = piece.getX() + xStep; piece.getXDistance(i) < piece.getXDistance(newX) ; i+=xStep) {
-            if (i > -1) {
-                if (!piece.getBoard().getSquares()[i][j].isEmpty()) {
-                    return false;
-                }
+            if ((i > -1) && (!piece.getBoard().getSquares()[i][j].isEmpty())) {
+                return false;
             }
             j+=yStep;
         }
@@ -50,20 +50,18 @@ public class DiagonalHelper {
     public static boolean canMoveAnywhere(Piece piece) {
         int j = piece.getX();
         for (int i = 0; i < 8; i++) {
-            if (piece.getY() - j > -1 && piece.getY() - j < 8) {
-                if (piece.canMoveTo(i, piece.getY() - j)) {
-                    return true;
-                }
+            if ((piece.getY() - j > -1 && piece.getY() - j < 8)
+                    && piece.getBoard().moveIsValid(piece.getX(), piece.getY(), i, piece.getY() - j)) {
+                return true;
             }
             j++;
         }
 
         j = piece.getX();
         for (int i = 0; i < 8; i++) {
-            if (piece.getY() + j > -1 && piece.getY() + j < 8) {
-                if (piece.canMoveTo(i, piece.getY() + j)) {
-                    return true;
-                }
+            if ((piece.getY() + j > -1 && piece.getY() + j < 8)
+                    && piece.getBoard().moveIsValid(piece.getX(), piece.getY(), i, piece.getY() + j)) {
+                return true;
             }
             j--;
         }

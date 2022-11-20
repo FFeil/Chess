@@ -13,7 +13,7 @@ public abstract class Piece {
     protected int y;
 
 
-    public Piece(Board board, Color color, int x, int y) {
+    protected Piece(Board board, Color color, int x, int y) {
         this.color = color;
         this.x = x;
         this.y = y;
